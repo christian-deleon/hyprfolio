@@ -2,58 +2,55 @@
 # Full reference: docs/CONFIG-REFERENCE.md
 
 site:
-  title: 'Christian De Leon — DevOps Engineer'
-  description: 'DevOps Engineer specializing in cloud infrastructure, CI/CD pipelines, and container orchestration. Automating everything that can be automated.'
+  title: 'Elliot Alderson — Cybersecurity Engineer'
+  description: 'Cybersecurity engineer specializing in penetration testing, network security, and vulnerability assessment. Hello, friend.'
   url: 'https://example.com'
   language: en
 
 profile:
-  name: 'Christian De Leon'
-  username: 'christian-deleon'
-  headline: 'DevOps Engineer'
-  summary: 'I build and maintain cloud infrastructure and CI/CD pipelines. Focused on automation, reliability, and developer experience.'
+  name: 'Elliot Alderson'
+  username: 'elliot'
+  headline: 'Cybersecurity Engineer'
+  summary: 'Cybersecurity engineer with 7+ years of experience in penetration testing, network defense, and vulnerability research. Currently protecting Fortune 500 clients at Allsafe Cybersecurity. I find the vulnerabilities before someone else does.'
   photo: '/images/profile.jpg'
   location: 'New York, NY'
-  email: 'hello@example.com'
+  email: 'elliot@protonmail.ch'
   website: 'https://example.com'
 
 contact:
-  email: 'hello@example.com'
+  email: 'elliot@protonmail.ch'
   location: 'New York, NY'
-  availability: 'Open to opportunities'
+  availability: 'Selective engagements only'
   preferredContact: 'email'
-  message: "Let's build something reliable together."
+  message: 'Hello, friend.'
 
 social:
   - network: GitHub
-    url: 'https://github.com/christian-deleon'
-    username: christian-deleon
-  - network: LinkedIn
-    url: 'https://linkedin.com/in/example'
-  - network: Twitter
-    url: 'https://twitter.com/example'
-    username: example
+    url: 'https://github.com/mr-robot-00'
+    username: mr-robot-00
 
 about:
-  bio: 'DevOps engineer who believes infrastructure should be version-controlled, reproducible, and easy to debug at any hour.'
+  bio: 'Cybersecurity engineer at Allsafe Cybersecurity, where I protect some of the largest corporations in the world from threats they never see coming. I specialize in penetration testing, network defense, and vulnerability research. Most of my work happens in a terminal — I write custom tools, tear apart exploits, and harden infrastructure that other people assume is already secure. I believe security is not a product, it is a process. And I take that process seriously.'
   funFacts:
-    - 'I run Linux on my daily driver'
-    - 'My homelab has better uptime than most startups'
-    - 'Automated my coffee maker with a Raspberry Pi'
-    - 'First open-source contribution was a docs fix'
+    - 'Kali Linux is my daily driver — has been for years'
+    - 'I have a mass mail server running in my apartment closet'
+    - 'My fish is named Qwerty and he is a good listener'
+    - 'I use ProtonMail and Signal exclusively — nothing else'
+    - 'I route everything through Tor out of principle'
+    - 'I have never had a social media account'
+    - 'I once wiped a production server by accident on my first week at Allsafe'
   systemInfo:
-    OS: 'Linux 6.x'
-    WM: 'Hyprfolio'
-    Shell: 'zsh'
-    Terminal: 'kitty'
-    Editor: 'Neovim'
-    Uptime: '6y in DevOps'
+    Location: 'New York, NY'
+    Specialization: 'Penetration Testing'
+    Clearance: 'root'
+    Uptime: '7y in cybersec'
 
 # ─── Visual Settings ─────────────────────────────────────────────────────────
 
 palette:
-  default: catppuccin-mocha
+  default: dracula
   defaultLight: catppuccin-latte
+  respectSystem: false
   available:
     - catppuccin-mocha
     - catppuccin-latte
@@ -66,7 +63,6 @@ palette:
     - dracula
     - rose-pine
     - rose-pine-dawn
-  respectSystem: true
 
 wallpaper:
   image: '/wallpapers/wallpaper.jpg'
@@ -153,167 +149,190 @@ tiles:
 # ─── Experience ──────────────────────────────────────────────────────────────
 
 experience:
-  - company: 'Stratos Systems'
-    position: 'Senior DevOps Engineer'
-    startDate: '2022-03'
+  - company: 'Allsafe Cybersecurity'
+    position: 'Cybersecurity Engineer'
+    startDate: '2014-03'
     current: true
-    summary: 'Leading DevOps practices for a SaaS platform.'
+    summary: 'Senior security engineer protecting E Corp and other Fortune 500 clients from cyber threats.'
     highlights:
-      - 'Migrated legacy deployment pipeline to **Kubernetes** container orchestration, reducing deploy time by 90%'
-      - 'Designed multi-region **Terraform** infrastructure achieving 99.99% uptime'
-      - 'Built **GitOps** pipeline with **Python** and **Go** processing 200+ deployments per day'
-      - 'Reduced cloud spend by 40% through **Linux** resource optimization'
+      - 'Detected and mitigated a critical **rootkit** on E Corp servers, preventing a major data breach'
+      - 'Performed **penetration testing** across client networks, identifying 200+ vulnerabilities'
+      - 'Built custom **Python** intrusion detection scripts reducing threat response time by 80%'
+      - 'Managed **firewall** rules and **IDS/IPS** configurations for enterprise-scale infrastructure'
     location: 'New York, NY'
 
-  - company: 'Groundwork Tech'
-    position: 'DevOps Engineer'
-    startDate: '2019-06'
-    endDate: '2022-02'
-    summary: 'Built and maintained infrastructure for a developer tools startup.'
+  - company: 'Freelance'
+    position: 'Security Consultant'
+    startDate: '2012-01'
+    endDate: '2014-02'
+    summary: 'Independent security researcher and penetration tester.'
     highlights:
-      - 'Designed **Kubernetes** container platform serving 500+ services across 3 clusters'
-      - 'Implemented **Terraform** service mesh for zero-trust networking'
-      - 'Created reusable **Python** infrastructure modules adopted by 15 teams'
-      - 'Reduced mean time to recovery from 2 hours to 15 minutes with **CI/CD** automation'
-    location: 'Austin, TX'
+      - 'Conducted **vulnerability assessments** for small businesses and startups'
+      - 'Developed custom **exploit** proof-of-concepts for responsible disclosure'
+      - 'Built network monitoring tools in **Python** and **C** for threat detection'
+      - 'Performed **social engineering** audits to evaluate physical and digital security posture'
+    location: 'New York, NY'
 
-  - company: 'Clearstream Data'
-    position: 'Junior DevOps Engineer'
-    startDate: '2017-01'
-    endDate: '2019-05'
-    summary: 'First infrastructure hire at a data analytics startup.'
+  - company: 'Self-Taught'
+    position: 'Independent Security Researcher'
+    startDate: '2008-01'
+    endDate: '2011-12'
+    summary: 'Years of self-directed study in offensive and defensive security.'
     highlights:
-      - 'Built **CI/CD** pipelines from scratch'
-      - 'Containerized 30+ services with **Docker**, eliminating environment drift'
-      - 'Implemented **Ansible** monitoring and alerting stack with 200+ alerts'
-    location: 'Portland, OR'
+      - 'Contributed to open-source **Linux** security tools'
+      - 'Studied **cryptography**, reverse engineering, and exploit development'
+      - 'Built a home lab for practicing **network security** and malware analysis'
+    location: 'Washington Township, NJ'
 
 # ─── Education ───────────────────────────────────────────────────────────────
 
 education:
-  - institution: 'State University'
-    area: 'Computer Science'
-    studyType: 'B.S.'
-    startDate: '2013'
-    endDate: '2017'
+  - institution: 'Offensive Security'
+    area: 'Penetration Testing with Kali Linux'
+    studyType: 'Professional Training'
+    startDate: '2012'
+    endDate: '2013'
     courses:
-      - 'Distributed Systems'
+      - 'Exploit Development'
+      - 'Web Application Attacks'
+      - 'Privilege Escalation'
+      - 'Active Directory Attacks'
+
+  - institution: 'CUNY College of Technology'
+    area: 'Computer Science'
+    studyType: 'Coursework (Did Not Complete)'
+    startDate: '2006'
+    endDate: '2008'
+    courses:
       - 'Computer Networks'
       - 'Operating Systems'
-      - 'Cloud Computing'
-    honors:
-      - "Dean's List 2015-2017"
+      - 'Data Structures & Algorithms'
+      - 'Cryptography'
+
+  - institution: 'Self-Directed Study'
+    area: 'Security Research & Exploit Development'
+    studyType: 'Ongoing'
+    startDate: '2004'
+    courses:
+      - 'Reverse Engineering'
+      - 'Malware Analysis'
+      - 'Network Protocol Analysis'
+      - 'Wireless Security'
 
 # ─── Skills ──────────────────────────────────────────────────────────────────
 
 skills:
-  - category: 'Cloud & Infrastructure'
+  - category: 'Offensive Security'
+    skills:
+      - name: 'Penetration Testing'
+        tier: expert
+      - name: 'Exploit Development'
+        tier: expert
+      - name: 'Social Engineering'
+        tier: expert
+      - name: 'Reverse Engineering'
+        tier: advanced
+
+  - category: 'Defensive Security'
+    skills:
+      - name: 'Network Security'
+        tier: expert
+      - name: 'Digital Forensics'
+        tier: advanced
+      - name: 'Cryptography'
+        tier: advanced
+      - name: 'IDS/IPS'
+        tier: advanced
+
+  - category: 'Systems & Tools'
     skills:
       - name: 'Linux'
         tier: expert
-      - name: 'Kubernetes'
-        tier: advanced
-      - name: 'Terraform'
-        tier: advanced
-      - name: 'Docker'
+      - name: 'Metasploit'
         tier: expert
-
-  - category: 'CI/CD & Automation'
-    skills:
-      - name: 'CI/CD Pipelines'
+      - name: 'Wireshark'
+        tier: advanced
+      - name: 'Nmap'
         tier: expert
-      - name: 'Ansible'
-        tier: proficient
-      - name: 'Shell Scripting'
-        tier: advanced
-
-  - category: 'Observability'
-    skills:
-      - name: 'Monitoring'
-        tier: advanced
-      - name: 'Logging'
-        tier: proficient
-      - name: 'Tracing'
-        tier: familiar
 
   - category: 'Languages'
     skills:
       - name: 'Python'
+        tier: expert
+      - name: 'C'
         tier: advanced
-      - name: 'Go'
-        tier: proficient
-      - name: 'TypeScript'
-        tier: familiar
       - name: 'Bash'
         tier: expert
+      - name: 'Ruby'
+        tier: proficient
 
 # ─── Projects ────────────────────────────────────────────────────────────────
 
 projects:
-  - name: 'cluster-cleanup'
-    description: 'Automatic cleanup of stale container resources. Garbage collection for your cluster.'
-    url: 'https://github.com/christian-deleon/cluster-cleanup'
+  - name: 'fsociety-tools'
+    description: 'Collection of custom penetration testing and network reconnaissance utilities.'
+    url: 'https://github.com/mr-robot-00/fsociety-tools'
     technologies:
-      - Go
-      - Kubernetes
-      - Helm
+      - Python
+      - C
+      - Shell
     highlights:
-      - 'Open-source with active community'
-      - 'Used in multiple production environments'
+      - 'Custom exploit frameworks'
+      - 'Network enumeration automation'
     featured: true
 
-  - name: 'infra-modules'
-    description: 'Reusable infrastructure-as-code modules for common cloud patterns.'
-    url: 'https://github.com/christian-deleon/infra-modules'
+  - name: 'cryptwall'
+    description: 'File encryption toolkit using AES-256 with secure key management.'
+    url: 'https://github.com/mr-robot-00/cryptwall'
     technologies:
-      - Terraform
-      - CI/CD
+      - Python
+      - Cryptography
     highlights:
-      - 'Powers infrastructure at multiple companies'
-      - 'Fully tested with integration tests'
+      - 'Military-grade encryption at rest'
+      - 'Zero-knowledge key derivation'
     featured: true
 
   - name: 'dotfiles'
-    description: 'My Linux rice. Fully reproducible development environment.'
-    url: 'https://github.com/christian-deleon/dotfiles'
+    description: 'My Kali Linux rice. Paranoid-grade development environment.'
+    url: 'https://github.com/mr-robot-00/dotfiles'
     technologies:
-      - Nix
-      - Lua
       - Shell
+      - Lua
+      - Python
     highlights:
-      - 'One command to rebuild entire system'
+      - 'Full disk encryption + ephemeral sessions'
     featured: true
 
-  - name: 'deploy-bot'
-    description: 'Chat bot for managing deployments via slash commands.'
-    url: 'https://github.com/christian-deleon/deploy-bot'
+  - name: 'netwatch'
+    description: 'Real-time network traffic monitor and anomaly detector.'
+    url: 'https://github.com/mr-robot-00/netwatch'
     technologies:
-      - Go
-      - Kubernetes
+      - C
+      - Python
     featured: false
 
 # ─── Certifications ──────────────────────────────────────────────────────────
 
 certifications:
-  - name: 'Cloud Solutions Architect — Professional'
-    issuer: 'Cloud Provider'
-    date: '2023-06'
-    id: 'CSA-PRO-2023'
+  - name: 'Offensive Security Certified Professional (OSCP)'
+    issuer: 'Offensive Security'
+    date: '2013-08'
+    id: 'OSCP-2013'
 
-  - name: 'Certified Kubernetes Administrator'
-    issuer: 'CNCF'
-    date: '2022-09'
-    id: 'CKA-2022'
+  - name: 'Certified Ethical Hacker (CEH)'
+    issuer: 'EC-Council'
+    date: '2012-04'
+    id: 'CEH-2012'
 
-  - name: 'Infrastructure as Code Associate'
-    issuer: 'IaC Vendor'
-    date: '2021-11'
-    id: 'IAC-2021'
+  - name: 'CompTIA Security+'
+    issuer: 'CompTIA'
+    date: '2011-06'
+    id: 'SEC-PLUS-2011'
 
-  - name: 'Cloud Solutions Architect — Associate'
-    issuer: 'Cloud Provider'
-    date: '2020-03'
-    id: 'CSA-ASSOC-2020'
+  - name: 'CompTIA Network+'
+    issuer: 'CompTIA'
+    date: '2010-09'
+    id: 'NET-PLUS-2010'
 
 # ─── SEO ─────────────────────────────────────────────────────────────────────
 
