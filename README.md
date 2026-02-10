@@ -33,12 +33,12 @@ One config file. Zero JavaScript frameworks. Looks like a real Hyprland rice.
 - **9 window types** -- Terminal, Browser, Editor, File Manager, System Monitor, PDF Viewer, Image Viewer, Markdown Viewer, and Blank.
 - **8 tile content types** -- About, Experience, Education, Skills, Projects, Certifications, Contact, and Custom.
 - **Responsive** -- 12-column CSS Grid that adapts from desktop to mobile with automatic column clamping.
-- **Print resume** -- `Ctrl+P` outputs a clean, professional single-column resume. No wallpaper, no window chrome, just content.
-- **Under 185 KB** -- Total page weight (without wallpaper) stays under 185 KB: HTML ~53 KB, CSS ~40 KB, JS ~0 KB (inline), Fonts ~90 KB.
+- **Print resume** -- `Ctrl+P` outputs a clean, professional single-column resume with no wallpaper or window chrome.
+- **Under 185 KB** -- Total page weight (without wallpaper): HTML ~53 KB, CSS ~40 KB, JS ~0 KB, Fonts ~90 KB.
 - **Zero framework JS** -- No React, Preact, or Svelte. Only two vanilla `<script>` islands (palette switcher and clock).
-- **SEO ready** -- Open Graph, Twitter Cards, JSON-LD Person schema, sitemap, and robots.txt out of the box.
-- **Accessible** -- WCAG AA contrast on all palettes, keyboard navigation, ARIA labels, skip-to-content link, and `prefers-reduced-motion` support.
-- **JSON Resume superset** -- Config schema is a superset of [JSON Resume v1.0.0](https://jsonresume.org/), extended with 32+ sections for portfolio, freelance, academic, and military personas.
+- **SEO ready** -- Open Graph, Twitter Cards, JSON-LD Person schema, sitemap, and robots.txt.
+- **Accessible** -- WCAG AA contrast, keyboard navigation, ARIA labels, skip-to-content link, `prefers-reduced-motion` support.
+- **JSON Resume superset** -- Config schema extends [JSON Resume v1.0.0](https://jsonresume.org/) with 32+ sections.
 
 ---
 
@@ -88,13 +88,11 @@ just build      # Production build to dist/
 just preview    # Preview the production build locally
 ```
 
-Deploy the `dist/` directory to any static hosting provider. See [Deployment](#deployment) for platform-specific instructions.
-
 ---
 
 ## Configuration
 
-All content and settings live in `hyprfolio.config.yaml` at the project root. The config is validated at build time using Zod schemas, so you get clear error messages if something is misconfigured.
+All content and settings live in `hyprfolio.config.yaml`. The config is validated at build time with Zod schemas, so you get clear error messages if something is misconfigured.
 
 ### Config Sections
 
@@ -110,7 +108,7 @@ All content and settings live in `hyprfolio.config.yaml` at the project root. Th
 | `academic`, `executive`, `military`                                                       | Specialized personas                    |
 | `organizations`, `patents`, `courses`, `testScores`, `personal`, `custom`                 | Additional sections                     |
 
-For the full config reference, see [docs/CONFIG-REFERENCE.md](docs/CONFIG-REFERENCE.md).
+For the full field-by-field reference, see [docs/CONFIG-REFERENCE.md](docs/CONFIG-REFERENCE.md).
 
 ### Tile Configuration
 
@@ -123,40 +121,6 @@ tiles:
     colSpan: 7 # Grid columns (1-12)
     rowSpan: 2 # Grid rows
     terminalTitle: 'neofetch -- kitty'
-```
-
----
-
-## Palettes
-
-Hyprfolio ships with 11 color palettes. Users can switch between them live using the palette switcher in the Waybar, and the choice persists in localStorage.
-
-| ID                  | Theme       | Variant               |
-| ------------------- | ----------- | --------------------- |
-| `catppuccin-mocha`  | Catppuccin  | Dark (default)        |
-| `catppuccin-latte`  | Catppuccin  | Light (default light) |
-| `tokyo-night`       | Tokyo Night | Dark                  |
-| `tokyo-night-light` | Tokyo Night | Light                 |
-| `gruvbox-dark`      | Gruvbox     | Dark                  |
-| `gruvbox-light`     | Gruvbox     | Light                 |
-| `nord`              | Nord        | Dark                  |
-| `nord-light`        | Nord        | Light                 |
-| `dracula`           | Dracula     | Dark                  |
-| `rose-pine`         | Rose Pine   | Dark                  |
-| `rose-pine-dawn`    | Rose Pine   | Light                 |
-
-Control which palettes are available and which is the default in your config:
-
-```yaml
-palette:
-  default: catppuccin-mocha
-  defaultLight: catppuccin-latte
-  available:
-    - catppuccin-mocha
-    - catppuccin-latte
-    - tokyo-night
-    - dracula
-  respectSystem: true # Auto-switch dark/light based on OS preference
 ```
 
 ---
@@ -196,75 +160,43 @@ Window types provide application-specific chrome (toolbars, status bars, styling
 
 ---
 
-## Development
+## Palettes
 
-### Prerequisites
+11 built-in color palettes. Users can switch live via the Waybar palette switcher, and the choice persists in localStorage.
 
-- [Node.js](https://nodejs.org/) 18+
-- [just](https://github.com/casey/just) command runner (recommended) or use `npm run` directly
+| ID                  | Theme       | Variant               |
+| ------------------- | ----------- | --------------------- |
+| `catppuccin-mocha`  | Catppuccin  | Dark (default)        |
+| `catppuccin-latte`  | Catppuccin  | Light (default light) |
+| `tokyo-night`       | Tokyo Night | Dark                  |
+| `tokyo-night-light` | Tokyo Night | Light                 |
+| `gruvbox-dark`      | Gruvbox     | Dark                  |
+| `gruvbox-light`     | Gruvbox     | Light                 |
+| `nord`              | Nord        | Dark                  |
+| `nord-light`        | Nord        | Light                 |
+| `dracula`           | Dracula     | Dark                  |
+| `rose-pine`         | Rose Pine   | Dark                  |
+| `rose-pine-dawn`    | Rose Pine   | Light                 |
 
-### Commands
-
-| Command                   | Description                                 |
-| ------------------------- | ------------------------------------------- |
-| `just install`            | Install npm dependencies                    |
-| `just dev`                | Start Astro dev server (`localhost:4321`)   |
-| `just build`              | Production build to `dist/`                 |
-| `just preview`            | Preview production build locally            |
-| `just validate`           | Run config validation standalone            |
-| `just format`             | Format all files with Prettier              |
-| `just format-check`       | Check formatting (CI-friendly)              |
-| `just typecheck`          | TypeScript type checking via `astro check`  |
-| `just clean`              | Remove `dist/`, `.astro/`, and module cache |
-| `just ci`                 | Run format-check + typecheck + build        |
-| `just new-palette <name>` | Scaffold a new palette from the template    |
-
-### Tech Stack
-
-| Tool             | Version | Purpose                                      |
-| ---------------- | ------- | -------------------------------------------- |
-| Astro            | ^5.2.0  | Static site framework (islands architecture) |
-| Tailwind CSS     | v4      | Utility CSS via `@tailwindcss/vite` plugin   |
-| TypeScript       | ^5.7.0  | Type safety                                  |
-| Zod              | ^3.23.0 | Config validation and type derivation        |
-| js-yaml          | ^4.1.0  | YAML parsing                                 |
-| @astrojs/sitemap | ^3.7.0  | Auto-generated sitemap                       |
-
----
-
-## Project Structure
-
-```
-hyprfolio/
-├── hyprfolio.config.yaml          # All user content + settings
-├── astro.config.mjs               # Astro + Tailwind v4
-├── justfile                       # Task runner
-├── public/
-│   ├── fonts/                     # WOFF2 (JetBrains Mono NF)
-│   ├── wallpapers/                # User wallpaper images
-│   ├── images/                    # Profile photo, project screenshots
-│   ├── favicon.svg
-│   └── robots.txt
-├── src/
-│   ├── pages/                     # index.astro (the desktop), 404.astro
-│   ├── layouts/                   # Layout.astro (html, head, body, SEO)
-│   ├── components/                # Desktop, Waybar, TileGrid, Tile, etc.
-│   ├── windows/                   # Window type components (app chrome)
-│   ├── tiles/                     # Tile content components
-│   ├── palettes/                  # Color palette CSS files
-│   ├── styles/                    # Global CSS, animations, typography, print
-│   ├── lib/                       # Config loader, schema, resolvers, SEO
-│   └── types/                     # Re-exported z.infer<> types
-└── docs/                          # Architecture, config reference, deployment
+```yaml
+palette:
+  default: catppuccin-mocha
+  defaultLight: catppuccin-latte
+  available:
+    - catppuccin-mocha
+    - catppuccin-latte
+    - tokyo-night
+    - dracula
+  respectSystem: true # Auto-switch dark/light based on OS preference
 ```
 
-For a deep dive into the architecture, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+To create a custom palette, see [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
 
 ---
 
 ## Deployment
 
-Hyprfolio builds to static HTML in the `dist/` directory and works on any static hosting provider.
+Hyprfolio builds to static HTML in `dist/` and works on any static hosting provider.
 
 ### GitHub Pages (recommended)
 
@@ -305,50 +237,19 @@ just build
 # Copy dist/ to your server
 ```
 
-For detailed deployment instructions, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+**Important**: Update `site.url` in `hyprfolio.config.yaml` and the `site` property in `astro.config.mjs` to match your production URL for correct sitemap and canonical URLs.
 
 ---
 
 ## Print / PDF Resume
 
-Hyprfolio includes a complete print stylesheet. Press `Ctrl+P` (or `Cmd+P` on macOS) to print or save as PDF.
-
-The print view:
-
-- Hides the Waybar, wallpaper, window chrome, and palette switcher
-- Shows a professional header with your name, title, and contact info
-- Renders as a single-column layout with system fonts at 11pt
-- Uses black text on a white background
-- Applies `break-inside: avoid` to keep sections together across pages
-
-No configuration needed -- it works automatically.
-
----
-
-## Accessibility
-
-Hyprfolio is built with accessibility as a priority:
-
-- **Keyboard navigation** -- All interactive elements are focusable and operable via keyboard
-- **Skip-to-content link** -- Hidden link at the top of the page for screen reader users
-- **ARIA labels** -- Meaningful labels on interactive controls and landmark regions
-- **WCAG AA contrast** -- All 11 palettes meet WCAG AA contrast requirements
-- **Semantic HTML** -- Proper heading hierarchy, landmark elements, and list structures
-- **Focus indicators** -- Visible focus rings on all interactive elements
-- **Reduced motion** -- All animations respect `prefers-reduced-motion: reduce`
-- **Alt text** -- Image elements include descriptive alt text
+Press `Ctrl+P` (or `Cmd+P` on macOS) to print or save as PDF. The print stylesheet hides the Waybar, wallpaper, and window chrome, and renders a clean single-column resume with a professional header, system fonts at 11pt, and `break-inside: avoid` on sections. No configuration needed.
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
-
-- Development setup
-- Code style rules
-- How to add new palettes, window types, and tile content
-- Commit message format
-- Pull request process
+Contributions are welcome! See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for development setup, commit format, and PR guidelines. For creating custom palettes, window types, or tile content types, see [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md).
 
 ---
 
@@ -360,7 +261,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for gu
 
 ## Credits
 
-Hyprfolio draws inspiration from and builds on the work of these projects:
+Hyprfolio draws inspiration from these projects:
 
 - **[Hyprland](https://hyprland.org/)** -- The tiling compositor that inspired the visual design
 - **[Astro](https://astro.build/)** -- Static site framework powering the build
