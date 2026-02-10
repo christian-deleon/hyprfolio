@@ -1,0 +1,121 @@
+---
+import Waybar from '@/components/Waybar.astro';
+import TileGrid from '@/components/TileGrid.astro';
+import PrintHeader from '@/components/PrintHeader.astro';
+import type { HyprfolioConfig } from '@/types/config';
+
+interface Props {
+  config: HyprfolioConfig;
+}
+
+const { config } = Astro.props;
+const { wallpaper, waybar } = config;
+---
+
+<div class="desktop-container" role="presentation">
+  {
+    wallpaper.image && (
+      <div
+        class="wallpaper-bg"
+        style={`
+        background-image: url('${wallpaper.image}');
+        opacity: ${wallpaper.opacity};
+        filter: blur(${wallpaper.blur}px);
+        background-size: ${wallpaper.size};
+        background-position: ${wallpaper.position};
+      `}
+        aria-hidden="true"
+      />
+    )
+  }
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <div
+    class="desktop-content"
+    style={`padding-top: ${waybar.show ? waybar.height : 0}px;`}
+  >
+    {waybar.show && <Waybar config={config} />}
+
+    <TileGrid />
+
+    <footer class="hyprfolio-footer">
+      <a
+        href="https://github.com/christian-deleon/hyprfolio"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+      >
+        <span class="footer-prompt">~</span> built with <span class="footer-name">hyprfolio</span>
+      </a>
+    </footer>
+
+    <PrintHeader config={config} />
+  </div>
+</div>
+
+<style>
+  .desktop-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .wallpaper-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-repeat: no-repeat;
+  }
+
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: var(--hp-noise-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  .desktop-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .hyprfolio-footer {
+    text-align: center;
+    padding: 12px 20px 20px;
+    font-family: 'JetBrains Mono NF', 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .footer-link {
+    color: var(--hp-overlay-2);
+    text-decoration: none;
+    transition: color 250ms var(--bezier-snappy);
+  }
+
+  .footer-link:hover {
+    color: var(--hp-subtext-1);
+  }
+
+  .footer-prompt {
+    color: var(--hp-overlay-1);
+  }
+
+  .footer-name {
+    color: var(--hp-accent);
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .hyprfolio-footer {
+      padding: 8px 8px 12px;
+    }
+  }
+</style>

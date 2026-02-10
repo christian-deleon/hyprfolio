@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #eff1f5; }
+      .border { fill: #7287fd; }
+      .pane1 { fill: #ccd0da; }
+      .pane2 { fill: #bcc0cc; }
+      .accent { fill: #7287fd; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1e1e2e; }
+      .border { fill: #b4befe; }
+      .pane1 { fill: #313244; }
+      .pane2 { fill: #45475a; }
+      .accent { fill: #b4befe; }
+    }
+  </style>
+  <!-- Outer rounded rect (window border) -->
+  <rect class="border" x="1" y="1" width="30" height="30" rx="4"/>
+  <!-- Inner background -->
+  <rect class="bg" x="2.5" y="2.5" width="27" height="27" rx="3"/>
+  <!-- Tiled panes (Hyprland layout) -->
+  <rect class="pane1" x="4" y="4" width="14" height="24" rx="2"/>
+  <rect class="pane2" x="19.5" y="4" width="8.5" height="11" rx="2"/>
+  <rect class="pane1" x="19.5" y="16.5" width="8.5" height="11.5" rx="2"/>
+  <!-- Accent bar (waybar indicator) -->
+  <rect class="accent" x="4" y="4" width="14" height="2" rx="1"/>
+</svg>

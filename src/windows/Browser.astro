@@ -1,0 +1,87 @@
+---
+interface Props {
+  url?: string;
+}
+
+const { url = 'https://example.com' } = Astro.props;
+---
+
+<div class="browser">
+  <div class="browser__toolbar">
+    <div class="browser__traffic-lights">
+      <span class="browser__dot browser__dot--close"></span>
+      <span class="browser__dot browser__dot--minimize"></span>
+      <span class="browser__dot browser__dot--maximize"></span>
+    </div>
+    <div class="browser__address-bar terminal-text">
+      {url}
+    </div>
+  </div>
+  <div class="browser__content ui-text">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .browser {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .browser__toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    background: var(--hp-surface-0);
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .browser__traffic-lights {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .browser__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .browser__dot--close {
+    background: var(--hp-red);
+  }
+
+  .browser__dot--minimize {
+    background: var(--hp-yellow);
+  }
+
+  .browser__dot--maximize {
+    background: var(--hp-green);
+  }
+
+  .browser__address-bar {
+    flex: 1;
+    background: var(--hp-surface-1);
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 12px;
+    color: var(--hp-subtext-0);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .browser__content {
+    background: transparent;
+    padding: 16px;
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+    color: var(--hp-text);
+  }
+</style>

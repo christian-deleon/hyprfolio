@@ -1,0 +1,44 @@
+---
+const now = new Date();
+const hours = String(now.getHours()).padStart(2, '0');
+const minutes = String(now.getMinutes()).padStart(2, '0');
+const initialTime = `${hours}:${minutes}`;
+---
+
+<span class="clock-widget terminal-text" aria-label="Current time" role="timer">
+  {initialTime}
+</span>
+
+<script>
+  function initClock() {
+    const el = document.querySelector('.clock-widget');
+    if (!el) return;
+
+    function update() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      el!.textContent = `${h}:${m}`;
+    }
+
+    // Align to the next minute boundary
+    const msUntilNextMinute =
+      (60 - new Date().getSeconds()) * 1000 - new Date().getMilliseconds();
+
+    setTimeout(() => {
+      update();
+      setInterval(update, 60000);
+    }, msUntilNextMinute);
+  }
+
+  initClock();
+</script>
+
+<style>
+  .clock-widget {
+    color: var(--hp-text);
+    font-size: 13px;
+    white-space: nowrap;
+    user-select: none;
+  }
+</style>

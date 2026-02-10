@@ -1,0 +1,67 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="pdf-viewer">
+  <div class="pdf-viewer__toolbar terminal-text">
+    <span class="pdf-viewer__page-info">Page 1 / 1</span>
+    <span class="pdf-viewer__title">{title}</span>
+  </div>
+  <div class="pdf-viewer__viewport">
+    <div class="pdf-viewer__page">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .pdf-viewer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .pdf-viewer__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 12px;
+    background: var(--hp-surface-0);
+    color: var(--hp-subtext-0);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .pdf-viewer__page-info {
+    color: var(--hp-text);
+  }
+
+  .pdf-viewer__title {
+    color: var(--hp-subtext-0);
+  }
+
+  .pdf-viewer__viewport {
+    flex: 1;
+    background: var(--hp-mantle);
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    min-height: 0;
+  }
+
+  .pdf-viewer__page {
+    background: transparent;
+    color: var(--hp-text);
+    padding: 24px;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px var(--hp-shadow);
+    max-width: 600px;
+    width: 100%;
+  }
+</style>

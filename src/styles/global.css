@@ -1,0 +1,107 @@
+/* ─── Tailwind CSS v4 ─────────────────────────────────────────────────────── */
+@import 'tailwindcss';
+
+/* ─── Palettes ───────────────────────────────────────────────────────────── */
+@import '../palettes/catppuccin-mocha.css';
+@import '../palettes/catppuccin-latte.css';
+@import '../palettes/tokyo-night.css';
+@import '../palettes/tokyo-night-light.css';
+@import '../palettes/gruvbox-dark.css';
+@import '../palettes/gruvbox-light.css';
+@import '../palettes/nord.css';
+@import '../palettes/nord-light.css';
+@import '../palettes/dracula.css';
+@import '../palettes/rose-pine.css';
+@import '../palettes/rose-pine-dawn.css';
+
+/* ─── Styles ─────────────────────────────────────────────────────────────── */
+@import './typography.css';
+@import './animations.css';
+@import './print.css';
+
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--hp-crust);
+  color: var(--hp-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ─── Scrollbar Styling ──────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hp-surface-2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hp-overlay-0);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background: var(--hp-accent);
+  color: var(--hp-crust);
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--hp-accent);
+  outline-offset: 2px;
+}
+
+/* ─── Skip to Content ────────────────────────────────────────────────────── */
+
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: var(--hp-accent);
+  color: var(--hp-crust);
+  border-radius: 0 0 8px 8px;
+  z-index: 9999;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ─── Mobile Tile Padding ───────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .window-chrome .p-4 {
+    padding: 8px;
+  }
+}

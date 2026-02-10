@@ -1,0 +1,321 @@
+# ─── Hyprfolio Configuration ──────────────────────────────────────────────────
+# Full reference: docs/CONFIG-REFERENCE.md
+
+site:
+  title: 'Christian De Leon — DevOps Engineer'
+  description: 'DevOps Engineer specializing in cloud infrastructure, CI/CD pipelines, and container orchestration. Automating everything that can be automated.'
+  url: 'https://example.com'
+  language: en
+
+profile:
+  name: 'Christian De Leon'
+  username: 'christian-deleon'
+  headline: 'DevOps Engineer'
+  summary: 'I build and maintain cloud infrastructure and CI/CD pipelines. Focused on automation, reliability, and developer experience.'
+  photo: '/images/profile.jpg'
+  location: 'New York, NY'
+  email: 'hello@example.com'
+  website: 'https://example.com'
+
+contact:
+  email: 'hello@example.com'
+  location: 'New York, NY'
+  availability: 'Open to opportunities'
+  preferredContact: 'email'
+  message: "Let's build something reliable together."
+
+social:
+  - network: GitHub
+    url: 'https://github.com/christian-deleon'
+    username: christian-deleon
+  - network: LinkedIn
+    url: 'https://linkedin.com/in/example'
+  - network: Twitter
+    url: 'https://twitter.com/example'
+    username: example
+
+about:
+  bio: 'DevOps engineer who believes infrastructure should be version-controlled, reproducible, and easy to debug at any hour.'
+  funFacts:
+    - 'I run Linux on my daily driver'
+    - 'My homelab has better uptime than most startups'
+    - 'Automated my coffee maker with a Raspberry Pi'
+    - 'First open-source contribution was a docs fix'
+  systemInfo:
+    OS: 'Linux 6.x'
+    WM: 'Hyprfolio'
+    Shell: 'zsh'
+    Terminal: 'kitty'
+    Editor: 'Neovim'
+    Uptime: '6y in DevOps'
+
+# ─── Visual Settings ─────────────────────────────────────────────────────────
+
+palette:
+  default: catppuccin-mocha
+  defaultLight: catppuccin-latte
+  available:
+    - catppuccin-mocha
+    - catppuccin-latte
+    - tokyo-night
+    - tokyo-night-light
+    - gruvbox-dark
+    - gruvbox-light
+    - nord
+    - nord-light
+    - dracula
+    - rose-pine
+    - rose-pine-dawn
+  respectSystem: true
+
+wallpaper:
+  image: '/wallpapers/wallpaper.jpg'
+  opacity: 0.15
+  blur: 10
+  size: cover
+  position: center
+
+waybar:
+  show: true
+  # title auto-derives from profile.name as 'username@hyprfolio ~'
+  workspaces: 5
+  activeWorkspace: 1
+  showClock: true
+  showPaletteSwitcher: true
+  height: 36              # px
+  fontSize: 13            # px
+
+layout:
+  maxWidth: 1400
+  innerGap: 10            # px, gap between tiles
+  outerGap: 20            # px, padding around tile grid
+  windowOpacity: 0.6      # 0 = fully transparent, 1 = fully opaque
+  windowBlur: 10          # px, backdrop blur on windows
+  borderRadius: 10        # px, window corner rounding
+  borderWidth: 1          # px, window border thickness
+  inactiveOpacity: 0.85   # dimming for inactive windows
+  noiseOpacity: 0.03      # grain overlay intensity (0 to disable)
+  terminalFontSize: 13    # px, monospace/terminal font size
+  uiFontSize: 14          # px, UI/sans-serif font size
+
+animations:
+  enabled: true
+  entrance: popin
+  duration: 410
+  stagger: 80
+  hoverScale: 1.01
+
+# ─── Tile Layout ─────────────────────────────────────────────────────────────
+
+tiles:
+  - content: about
+    windowType: terminal
+    colSpan: 7
+    rowSpan: 2
+    terminalTitle: 'neofetch — kitty'
+
+  - content: skills
+    windowType: system-monitor
+    colSpan: 5
+    rowSpan: 2
+    title: 'Skills Monitor'
+
+  - content: experience
+    windowType: terminal
+    colSpan: 6
+    rowSpan: 2
+    terminalTitle: 'git log — kitty'
+
+  - content: projects
+    windowType: file-manager
+    colSpan: 6
+    rowSpan: 1
+    title: 'Projects'
+
+  - content: contact
+    windowType: terminal
+    colSpan: 6
+    rowSpan: 1
+    terminalTitle: 'aerc — kitty'
+
+  - content: education
+    windowType: terminal
+    colSpan: 6
+    rowSpan: 1
+    terminalTitle: 'man education — kitty'
+
+  - content: certifications
+    windowType: terminal
+    colSpan: 6
+    rowSpan: 1
+    terminalTitle: 'certifications — kitty'
+
+# ─── Experience ──────────────────────────────────────────────────────────────
+
+experience:
+  - company: 'Stratos Systems'
+    position: 'Senior DevOps Engineer'
+    startDate: '2022-03'
+    current: true
+    summary: 'Leading DevOps practices for a SaaS platform.'
+    highlights:
+      - 'Migrated legacy deployment pipeline to **Kubernetes** container orchestration, reducing deploy time by 90%'
+      - 'Designed multi-region **Terraform** infrastructure achieving 99.99% uptime'
+      - 'Built **GitOps** pipeline with **Python** and **Go** processing 200+ deployments per day'
+      - 'Reduced cloud spend by 40% through **Linux** resource optimization'
+    location: 'New York, NY'
+
+  - company: 'Groundwork Tech'
+    position: 'DevOps Engineer'
+    startDate: '2019-06'
+    endDate: '2022-02'
+    summary: 'Built and maintained infrastructure for a developer tools startup.'
+    highlights:
+      - 'Designed **Kubernetes** container platform serving 500+ services across 3 clusters'
+      - 'Implemented **Terraform** service mesh for zero-trust networking'
+      - 'Created reusable **Python** infrastructure modules adopted by 15 teams'
+      - 'Reduced mean time to recovery from 2 hours to 15 minutes with **CI/CD** automation'
+    location: 'Austin, TX'
+
+  - company: 'Clearstream Data'
+    position: 'Junior DevOps Engineer'
+    startDate: '2017-01'
+    endDate: '2019-05'
+    summary: 'First infrastructure hire at a data analytics startup.'
+    highlights:
+      - 'Built **CI/CD** pipelines from scratch'
+      - 'Containerized 30+ services with **Docker**, eliminating environment drift'
+      - 'Implemented **Ansible** monitoring and alerting stack with 200+ alerts'
+    location: 'Portland, OR'
+
+# ─── Education ───────────────────────────────────────────────────────────────
+
+education:
+  - institution: 'State University'
+    area: 'Computer Science'
+    studyType: 'B.S.'
+    startDate: '2013'
+    endDate: '2017'
+    courses:
+      - 'Distributed Systems'
+      - 'Computer Networks'
+      - 'Operating Systems'
+      - 'Cloud Computing'
+    honors:
+      - "Dean's List 2015-2017"
+
+# ─── Skills ──────────────────────────────────────────────────────────────────
+
+skills:
+  - category: 'Cloud & Infrastructure'
+    skills:
+      - name: 'Linux'
+        tier: expert
+      - name: 'Kubernetes'
+        tier: advanced
+      - name: 'Terraform'
+        tier: advanced
+      - name: 'Docker'
+        tier: expert
+
+  - category: 'CI/CD & Automation'
+    skills:
+      - name: 'CI/CD Pipelines'
+        tier: expert
+      - name: 'Ansible'
+        tier: proficient
+      - name: 'Shell Scripting'
+        tier: advanced
+
+  - category: 'Observability'
+    skills:
+      - name: 'Monitoring'
+        tier: advanced
+      - name: 'Logging'
+        tier: proficient
+      - name: 'Tracing'
+        tier: familiar
+
+  - category: 'Languages'
+    skills:
+      - name: 'Python'
+        tier: advanced
+      - name: 'Go'
+        tier: proficient
+      - name: 'TypeScript'
+        tier: familiar
+      - name: 'Bash'
+        tier: expert
+
+# ─── Projects ────────────────────────────────────────────────────────────────
+
+projects:
+  - name: 'cluster-cleanup'
+    description: 'Automatic cleanup of stale container resources. Garbage collection for your cluster.'
+    url: 'https://github.com/christian-deleon/cluster-cleanup'
+    technologies:
+      - Go
+      - Kubernetes
+      - Helm
+    highlights:
+      - 'Open-source with active community'
+      - 'Used in multiple production environments'
+    featured: true
+
+  - name: 'infra-modules'
+    description: 'Reusable infrastructure-as-code modules for common cloud patterns.'
+    url: 'https://github.com/christian-deleon/infra-modules'
+    technologies:
+      - Terraform
+      - CI/CD
+    highlights:
+      - 'Powers infrastructure at multiple companies'
+      - 'Fully tested with integration tests'
+    featured: true
+
+  - name: 'dotfiles'
+    description: 'My Linux rice. Fully reproducible development environment.'
+    url: 'https://github.com/christian-deleon/dotfiles'
+    technologies:
+      - Nix
+      - Lua
+      - Shell
+    highlights:
+      - 'One command to rebuild entire system'
+    featured: true
+
+  - name: 'deploy-bot'
+    description: 'Chat bot for managing deployments via slash commands.'
+    url: 'https://github.com/christian-deleon/deploy-bot'
+    technologies:
+      - Go
+      - Kubernetes
+    featured: false
+
+# ─── Certifications ──────────────────────────────────────────────────────────
+
+certifications:
+  - name: 'Cloud Solutions Architect — Professional'
+    issuer: 'Cloud Provider'
+    date: '2023-06'
+    id: 'CSA-PRO-2023'
+
+  - name: 'Certified Kubernetes Administrator'
+    issuer: 'CNCF'
+    date: '2022-09'
+    id: 'CKA-2022'
+
+  - name: 'Infrastructure as Code Associate'
+    issuer: 'IaC Vendor'
+    date: '2021-11'
+    id: 'IAC-2021'
+
+  - name: 'Cloud Solutions Architect — Associate'
+    issuer: 'Cloud Provider'
+    date: '2020-03'
+    id: 'CSA-ASSOC-2020'
+
+# ─── SEO ─────────────────────────────────────────────────────────────────────
+
+seo:
+  noIndex: false

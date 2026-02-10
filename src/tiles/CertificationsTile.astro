@@ -1,0 +1,61 @@
+---
+import { loadConfig } from '@/lib/config';
+import type { CertificationItem } from '@/types/config';
+
+interface Props {}
+
+const config = loadConfig();
+const certifications = config.certifications;
+---
+
+<div class="terminal-text p-4 overflow-y-auto">
+  {
+    certifications.length === 0 ? (
+      <div class="empty">No certifications configured.</div>
+    ) : (
+      <>
+        <div class="tree-root">Certifications</div>
+        {certifications.map((cert: CertificationItem, idx: number) => {
+          const isLast = idx === certifications.length - 1;
+          const branch = isLast ? '\u2514\u2500 ' : '\u251C\u2500 ';
+
+          return (
+            <div class="tree-row">
+              <span class="tree-char">{branch}</span>
+              <span class="cert-name">{cert.name}</span>
+              {cert.date && <span class="cert-date"> ({cert.date})</span>}
+            </div>
+          );
+        })}
+      </>
+    )
+  }
+</div>
+
+<style>
+  .empty {
+    color: var(--hp-subtext-0);
+  }
+
+  .tree-row {
+    white-space: nowrap;
+  }
+
+  .tree-root {
+    color: var(--hp-text);
+    font-weight: 700;
+  }
+
+  .tree-char {
+    color: var(--hp-overlay-1);
+    white-space: pre;
+  }
+
+  .cert-name {
+    color: var(--hp-text);
+  }
+
+  .cert-date {
+    color: var(--hp-subtext-0);
+  }
+</style>

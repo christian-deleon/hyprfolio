@@ -1,0 +1,25 @@
+[data-palette='dracula'] {
+  --hp-crust: #1e1f29;
+  --hp-mantle: #21222c;
+  --hp-base: #282a36;
+  --hp-surface-0: #343746;
+  --hp-surface-1: #3e4155;
+  --hp-surface-2: #484b64;
+  --hp-overlay-0: #535573;
+  --hp-overlay-1: #626483;
+  --hp-overlay-2: #6272a4;
+  --hp-subtext-0: #9196b0;
+  --hp-subtext-1: #bfc3d4;
+  --hp-text: #f8f8f2;
+  --hp-red: #ff5555;
+  --hp-green: #50fa7b;
+  --hp-yellow: #f1fa8c;
+  --hp-blue: #8be9fd;
+  --hp-purple: #bd93f9;
+  --hp-pink: #ff79c6;
+  --hp-orange: #ffb86c;
+  --hp-teal: #50fa7b;
+  --hp-sky: #8be9fd;
+  --hp-accent: #bd93f9;
+  --hp-shadow: rgba(0, 0, 0, 0.55);
+}

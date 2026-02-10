@@ -1,0 +1,38 @@
+/* ─── Palette Template ────────────────────────────────────────────────────── */
+/* Copy this file and fill in all --hp-* values for your custom palette.      */
+/* See docs/PALETTES.md for guidelines and color contrast requirements.       */
+
+[data-palette='PALETTE_NAME'] {
+  /* Backgrounds (darkest → lightest for dark themes, reverse for light) */
+  --hp-crust: ; /* Darkest background, used for deepest surfaces */
+  --hp-mantle: ; /* Slightly lighter than crust */
+  --hp-base: ; /* Main background color */
+  --hp-surface-0: ; /* Raised surface (cards, panels) */
+  --hp-surface-1: ; /* Higher surface (hover states) */
+  --hp-surface-2: ; /* Highest surface (active states) */
+
+  /* Overlays (translucent layers) */
+  --hp-overlay-0: ; /* Subtle overlay */
+  --hp-overlay-1: ; /* Medium overlay */
+  --hp-overlay-2: ; /* Strong overlay */
+
+  /* Text */
+  --hp-subtext-0: ; /* Dimmest text (labels, captions) */
+  --hp-subtext-1: ; /* Dimmed text (secondary info) */
+  --hp-text: ; /* Primary text color */
+
+  /* Semantic Colors */
+  --hp-red: ; /* Errors, deletions, exit codes */
+  --hp-green: ; /* Success, additions, active */
+  --hp-yellow: ; /* Warnings, highlights */
+  --hp-blue: ; /* Info, links */
+  --hp-purple: ; /* Special, keywords */
+  --hp-pink: ; /* Accent alternative */
+  --hp-orange: ; /* Secondary accent */
+  --hp-teal: ; /* Tertiary accent */
+  --hp-sky: ; /* Light info, decorative */
+
+  /* Special */
+  --hp-accent: ; /* Primary accent color (borders, focus rings) */
+  --hp-shadow: ; /* Box shadow color (usually dark + low alpha) */
+}

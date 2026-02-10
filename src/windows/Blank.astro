@@ -1,0 +1,18 @@
+---
+interface Props {}
+
+Astro.props;
+---
+
+<div class="blank-window">
+  <slot />
+</div>
+
+<style>
+  .blank-window {
+    flex: 1;
+    min-height: 0;
+    background: transparent;
+    overflow: auto;
+  }
+</style>

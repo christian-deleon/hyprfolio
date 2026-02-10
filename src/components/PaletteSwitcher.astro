@@ -1,0 +1,309 @@
+---
+import type { PaletteId } from '@/types/config';
+
+interface Props {
+  available: PaletteId[];
+  current: PaletteId;
+}
+
+const { available, current } = Astro.props;
+
+const paletteMeta: Record<string, { label: string; accent: string }> = {
+  'catppuccin-mocha': { label: 'Catppuccin Mocha', accent: '#b4befe' },
+  'catppuccin-latte': { label: 'Catppuccin Latte', accent: '#7287fd' },
+  'tokyo-night': { label: 'Tokyo Night', accent: '#7aa2f7' },
+  'tokyo-night-light': { label: 'Tokyo Night Light', accent: '#34548a' },
+  'gruvbox-dark': { label: 'Gruvbox Dark', accent: '#458588' },
+  'gruvbox-light': { label: 'Gruvbox Light', accent: '#076678' },
+  nord: { label: 'Nord', accent: '#88c0d0' },
+  'nord-light': { label: 'Nord Light', accent: '#5e81ac' },
+  dracula: { label: 'Dracula', accent: '#bd93f9' },
+  'rose-pine': { label: 'Rose Pine', accent: '#c4a7e7' },
+  'rose-pine-dawn': { label: 'Rose Pine Dawn', accent: '#907aa9' },
+};
+---
+
+<div
+  class="palette-switcher terminal-text"
+  data-palettes={JSON.stringify(available)}
+>
+  <button
+    class="palette-trigger"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-label="Switch color palette"
+    type="button"
+  >
+    <span class="palette-icon" aria-hidden="true">
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="10" cy="9" r="1.2" fill="currentColor" stroke="none" />
+        <circle cx="14" cy="9" r="1.2" fill="currentColor" stroke="none" />
+        <circle cx="8" cy="13" r="1.2" fill="currentColor" stroke="none" />
+        <circle cx="16" cy="13" r="1.2" fill="currentColor" stroke="none" />
+      </svg>
+    </span>
+    <span class="palette-name">{paletteMeta[current]?.label || current}</span>
+  </button>
+
+  <ul
+    class="palette-menu"
+    role="listbox"
+    aria-label="Color palettes"
+    tabindex="-1"
+  >
+    {
+      available.map((id, index) => (
+        <li
+          class="palette-option"
+          role="option"
+          data-palette-id={id}
+          aria-selected={id === current ? 'true' : 'false'}
+          id={`palette-option-${index}`}
+        >
+          <span
+            class="palette-swatch"
+            style={`background:${paletteMeta[id]?.accent || 'var(--hp-accent)'}`}
+          />
+          {paletteMeta[id]?.label || id}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  const LABELS: Record<string, string> = {
+    'catppuccin-mocha': 'Catppuccin Mocha',
+    'catppuccin-latte': 'Catppuccin Latte',
+    'tokyo-night': 'Tokyo Night',
+    'tokyo-night-light': 'Tokyo Night Light',
+    'gruvbox-dark': 'Gruvbox Dark',
+    'gruvbox-light': 'Gruvbox Light',
+    nord: 'Nord',
+    'nord-light': 'Nord Light',
+    dracula: 'Dracula',
+    'rose-pine': 'Rose Pine',
+    'rose-pine-dawn': 'Rose Pine Dawn',
+  };
+
+  function initPaletteSwitcher() {
+    const switcher = document.querySelector('.palette-switcher');
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector(
+      '.palette-trigger',
+    ) as HTMLButtonElement;
+    const menu = switcher.querySelector('.palette-menu') as HTMLUListElement;
+    const options = Array.from(
+      menu.querySelectorAll('.palette-option'),
+    ) as HTMLLIElement[];
+    const nameEl = switcher.querySelector('.palette-name') as HTMLSpanElement;
+
+    let activeIndex = options.findIndex(
+      (opt) =>
+        opt.dataset.paletteId === document.documentElement.dataset.palette,
+    );
+    if (activeIndex === -1) activeIndex = 0;
+
+    function open() {
+      trigger.setAttribute('aria-expanded', 'true');
+      menu.style.display = 'block';
+      menu.setAttribute(
+        'aria-activedescendant',
+        options[activeIndex]?.id || '',
+      );
+      options[activeIndex]?.scrollIntoView({ block: 'nearest' });
+    }
+
+    function close() {
+      trigger.setAttribute('aria-expanded', 'false');
+      menu.style.display = 'none';
+    }
+
+    function selectPalette(index: number) {
+      const opt = options[index];
+      if (!opt) return;
+      const id = opt.dataset.paletteId;
+      if (!id) return;
+
+      activeIndex = index;
+      document.documentElement.dataset.palette = id;
+      localStorage.setItem('hyprfolio-palette', id);
+
+      options.forEach((o) => o.setAttribute('aria-selected', 'false'));
+      opt.setAttribute('aria-selected', 'true');
+
+      nameEl.textContent = LABELS[id] || id;
+      close();
+    }
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        close();
+      } else {
+        open();
+      }
+    });
+
+    menu.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement).closest(
+        '.palette-option',
+      ) as HTMLLIElement | null;
+      if (!target) return;
+      const idx = options.indexOf(target);
+      if (idx !== -1) selectPalette(idx);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (!isOpen) return;
+
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          activeIndex = (activeIndex + 1) % options.length;
+          menu.setAttribute(
+            'aria-activedescendant',
+            options[activeIndex]?.id || '',
+          );
+          options[activeIndex]?.scrollIntoView({ block: 'nearest' });
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          activeIndex = (activeIndex - 1 + options.length) % options.length;
+          menu.setAttribute(
+            'aria-activedescendant',
+            options[activeIndex]?.id || '',
+          );
+          options[activeIndex]?.scrollIntoView({ block: 'nearest' });
+          break;
+        case 'Enter':
+          e.preventDefault();
+          selectPalette(activeIndex);
+          trigger.focus();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          close();
+          trigger.focus();
+          break;
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!switcher.contains(e.target as Node)) {
+        close();
+      }
+    });
+
+    // Sync on load in case localStorage changed palette
+    const current = document.documentElement.dataset.palette;
+    const idx = options.findIndex((opt) => opt.dataset.paletteId === current);
+    if (idx !== -1) {
+      activeIndex = idx;
+      nameEl.textContent = LABELS[current || ''] || current || '';
+      options.forEach((o) => o.setAttribute('aria-selected', 'false'));
+      options[idx]?.setAttribute('aria-selected', 'true');
+    }
+  }
+
+  initPaletteSwitcher();
+</script>
+
+<style>
+  .palette-switcher {
+    position: relative;
+  }
+
+  .palette-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border: 1px solid color-mix(in srgb, var(--hp-surface-1) 50%, transparent);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--hp-surface-0) 60%, transparent);
+    color: var(--hp-text);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1.5;
+    transition:
+      border-color 200ms var(--bezier-snappy),
+      background-color 200ms var(--bezier-snappy);
+  }
+
+  .palette-trigger:hover {
+    border-color: var(--hp-accent);
+    background: color-mix(in srgb, var(--hp-surface-0) 80%, transparent);
+  }
+
+  .palette-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .palette-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 180px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 4px;
+    margin: 0;
+    list-style: none;
+    background: color-mix(in srgb, var(--hp-mantle) 95%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--hp-surface-1);
+    border-radius: 8px;
+    z-index: 200;
+    box-shadow: 0 8px 24px var(--hp-shadow);
+  }
+
+  .palette-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--hp-subtext-1);
+    font-size: 12px;
+    transition:
+      background-color 100ms var(--bezier-snappy),
+      color 100ms var(--bezier-snappy);
+  }
+
+  .palette-option:hover,
+  .palette-option[aria-selected='true'] {
+    background: var(--hp-surface-0);
+    color: var(--hp-text);
+  }
+
+  .palette-option[aria-selected='true'] {
+    font-weight: 600;
+  }
+
+  .palette-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--hp-surface-2);
+    flex-shrink: 0;
+  }
+</style>

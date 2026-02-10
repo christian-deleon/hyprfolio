@@ -1,0 +1,127 @@
+---
+import { loadConfig } from '@/lib/config';
+import { buildMetaTags, buildPersonJsonLd } from '@/lib/seo';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const config = loadConfig();
+const { title, description } = Astro.props;
+
+const pageTitle = title || config.site.title;
+const pageDescription =
+  description || config.site.description || config.profile.headline;
+const metaTags = buildMetaTags(config);
+const jsonLd = buildPersonJsonLd(config);
+const canonicalUrl = config.seo.canonicalUrl || config.site.url;
+
+const paletteDefault = config.palette.default;
+const paletteDefaultLight = config.palette.defaultLight;
+const respectSystem = config.palette.respectSystem;
+
+const { layout, waybar: waybarConfig } = config;
+const layoutVars = [
+  `--hp-border-radius: ${layout.borderRadius}px`,
+  `--hp-border-width: ${layout.borderWidth}px`,
+  `--hp-window-blur: ${layout.windowBlur}px`,
+  `--hp-window-opacity-pct: ${Math.round(layout.windowOpacity * 100)}%`,
+  `--hp-inactive-opacity: ${layout.inactiveOpacity}`,
+  `--hp-noise-opacity: ${layout.noiseOpacity}`,
+  `--hp-terminal-font-size: ${layout.terminalFontSize}px`,
+  `--hp-ui-font-size: ${layout.uiFontSize}px`,
+  `--hp-waybar-height: ${waybarConfig.height}px`,
+  `--hp-waybar-font-size: ${waybarConfig.fontSize}px`,
+].join(';');
+---
+
+<!doctype html>
+<html lang={config.site.language} data-palette={paletteDefault} style={layoutVars}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {
+      metaTags.map((tag) => (
+        <meta
+          {...(tag.name ? { name: tag.name } : {})}
+          {...(tag.property ? { property: tag.property } : {})}
+          content={tag.content}
+        />
+      ))
+    }
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
+
+    {
+      config.analytics.googleId && (
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${config.analytics.googleId}`}
+        />
+      )
+    }
+    {
+      config.analytics.googleId && (
+        <script
+          is:inline
+          set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${config.analytics.googleId}');`}
+        />
+      )
+    }
+    {
+      config.analytics.plausibleDomain && (
+        <script
+          is:inline
+          defer
+          data-domain={config.analytics.plausibleDomain}
+          src="https://plausible.io/js/script.js"
+        />
+      )
+    }
+
+    <script
+      is:inline
+      define:vars={{ paletteDefault, paletteDefaultLight, respectSystem }}
+    >
+      (function () {
+        var stored = localStorage.getItem('hyprfolio-palette');
+        if (stored) {
+          document.documentElement.dataset.palette = stored;
+          return;
+        }
+        if (respectSystem && window.matchMedia) {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+          document.documentElement.dataset.palette = prefersDark.matches
+            ? paletteDefault
+            : paletteDefaultLight;
+          prefersDark.addEventListener('change', function (e) {
+            if (!localStorage.getItem('hyprfolio-palette')) {
+              document.documentElement.dataset.palette = e.matches
+                ? paletteDefault
+                : paletteDefaultLight;
+            }
+          });
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>

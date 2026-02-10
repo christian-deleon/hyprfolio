@@ -1,0 +1,120 @@
+---
+import WindowChrome from './WindowChrome.astro';
+import TileContent from './TileContent.astro';
+import Terminal from '@/windows/Terminal.astro';
+import Browser from '@/windows/Browser.astro';
+import Editor from '@/windows/Editor.astro';
+import FileManager from '@/windows/FileManager.astro';
+import SystemMonitor from '@/windows/SystemMonitor.astro';
+import PDFViewer from '@/windows/PDFViewer.astro';
+import ImageViewer from '@/windows/ImageViewer.astro';
+import MarkdownViewer from '@/windows/MarkdownViewer.astro';
+import Blank from '@/windows/Blank.astro';
+import { loadConfig } from '@/lib/config';
+import type { TileDefinition } from '@/types/config';
+
+interface Props {
+  tile: TileDefinition;
+  index: number;
+}
+
+const { tile, index } = Astro.props;
+const config = loadConfig();
+const { animations } = config;
+
+const staggerDelay = index * animations.stagger;
+---
+
+<div
+  class:list={[
+    'tile',
+    { 'tile-entrance': animations.enabled },
+    { 'tile-hover': animations.enabled },
+  ]}
+  data-animation={animations.enabled ? animations.entrance : 'none'}
+  style={`
+    grid-column: span ${tile.colSpan};
+    grid-row: span ${tile.rowSpan};
+    --stagger-delay: ${staggerDelay}ms;
+    --hover-scale: ${animations.hoverScale};
+  `}
+>
+  <WindowChrome active={true}>
+    {
+      tile.windowType === 'terminal' && (
+        <Terminal>
+          <TileContent content={tile.content} />
+        </Terminal>
+      )
+    }
+    {
+      tile.windowType === 'browser' && (
+        <Browser url={tile.browserUrl || 'https://example.com'}>
+          <TileContent content={tile.content} />
+        </Browser>
+      )
+    }
+    {
+      tile.windowType === 'editor' && (
+        <Editor filename={tile.editorFilename || 'untitled'}>
+          <TileContent content={tile.content} />
+        </Editor>
+      )
+    }
+    {
+      tile.windowType === 'file-manager' && (
+        <FileManager>
+          <TileContent content={tile.content} />
+        </FileManager>
+      )
+    }
+    {
+      tile.windowType === 'system-monitor' && (
+        <SystemMonitor title={tile.title}>
+          <TileContent content={tile.content} />
+        </SystemMonitor>
+      )
+    }
+    {
+      tile.windowType === 'pdf-viewer' && (
+        <PDFViewer>
+          <TileContent content={tile.content} />
+        </PDFViewer>
+      )
+    }
+    {
+      tile.windowType === 'image-viewer' && (
+        <ImageViewer>
+          <TileContent content={tile.content} />
+        </ImageViewer>
+      )
+    }
+    {
+      tile.windowType === 'markdown-viewer' && (
+        <MarkdownViewer>
+          <TileContent content={tile.content} />
+        </MarkdownViewer>
+      )
+    }
+    {
+      tile.windowType === 'blank' && (
+        <Blank>
+          <TileContent content={tile.content} />
+        </Blank>
+      )
+    }
+  </WindowChrome>
+</div>
+
+<style>
+  .tile {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  @media (max-width: 1200px) {
+    .tile {
+      grid-column: span 1 !important;
+    }
+  }
+</style>

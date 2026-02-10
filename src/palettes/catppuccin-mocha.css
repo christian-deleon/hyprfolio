@@ -1,0 +1,25 @@
+[data-palette='catppuccin-mocha'] {
+  --hp-crust: #11111b;
+  --hp-mantle: #181825;
+  --hp-base: #1e1e2e;
+  --hp-surface-0: #313244;
+  --hp-surface-1: #45475a;
+  --hp-surface-2: #585b70;
+  --hp-overlay-0: #6c7086;
+  --hp-overlay-1: #7f849c;
+  --hp-overlay-2: #9399b2;
+  --hp-subtext-0: #a6adc8;
+  --hp-subtext-1: #bac2de;
+  --hp-text: #cdd6f4;
+  --hp-red: #f38ba8;
+  --hp-green: #a6e3a1;
+  --hp-yellow: #f9e2af;
+  --hp-blue: #89b4fa;
+  --hp-purple: #cba6f7;
+  --hp-pink: #f5c2e7;
+  --hp-orange: #fab387;
+  --hp-teal: #94e2d5;
+  --hp-sky: #89dceb;
+  --hp-accent: #b4befe;
+  --hp-shadow: rgba(0, 0, 0, 0.5);
+}

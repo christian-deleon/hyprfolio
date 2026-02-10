@@ -1,0 +1,25 @@
+[data-palette='nord'] {
+  --hp-crust: #242933;
+  --hp-mantle: #2e3440;
+  --hp-base: #2e3440;
+  --hp-surface-0: #3b4252;
+  --hp-surface-1: #434c5e;
+  --hp-surface-2: #4c566a;
+  --hp-overlay-0: #616e88;
+  --hp-overlay-1: #6e7b96;
+  --hp-overlay-2: #7b88a1;
+  --hp-subtext-0: #8fbcbb;
+  --hp-subtext-1: #d8dee9;
+  --hp-text: #eceff4;
+  --hp-red: #bf616a;
+  --hp-green: #a3be8c;
+  --hp-yellow: #ebcb8b;
+  --hp-blue: #81a1c1;
+  --hp-purple: #b48ead;
+  --hp-pink: #b48ead;
+  --hp-orange: #d08770;
+  --hp-teal: #8fbcbb;
+  --hp-sky: #88c0d0;
+  --hp-accent: #88c0d0;
+  --hp-shadow: rgba(0, 0, 0, 0.45);
+}

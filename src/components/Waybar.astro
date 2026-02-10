@@ -1,0 +1,151 @@
+---
+import PaletteSwitcher from '@/components/PaletteSwitcher.astro';
+import Clock from '@/components/Clock.astro';
+import type { HyprfolioConfig } from '@/types/config';
+
+interface Props {
+  config: HyprfolioConfig;
+}
+
+const { config } = Astro.props;
+const { waybar, palette, profile } = config;
+
+const workspaceCount = waybar.workspaces;
+const activeWorkspace = waybar.activeWorkspace;
+const trayIcons = waybar.trayIcons;
+const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, '-');
+const title = waybar.title || `${username}@hyprfolio ~`;
+---
+
+<nav class="waybar terminal-text" aria-label="Status bar">
+  <div class="waybar-left">
+    <div class="workspaces" role="tablist" aria-label="Workspaces">
+      {
+        Array.from({ length: workspaceCount }, (_, i) => i + 1).map((num) => (
+          <span
+            class:list={['workspace-dot', { active: num === activeWorkspace }]}
+            role="tab"
+            aria-selected={num === activeWorkspace ? 'true' : 'false'}
+            aria-label={`Workspace ${num}`}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="waybar-center">
+    <span class="waybar-title">{title}</span>
+  </div>
+
+  <div class="waybar-right">
+    {
+      trayIcons.length > 0 && (
+        <div class="tray-icons" aria-label="System tray">
+          {trayIcons.map((icon) => (
+            <span class="tray-icon">{icon}</span>
+          ))}
+        </div>
+      )
+    }
+    {
+      waybar.showPaletteSwitcher && (
+        <PaletteSwitcher
+          available={palette.available}
+          current={palette.default}
+        />
+      )
+    }
+    {waybar.showClock && <Clock />}
+  </div>
+</nav>
+
+<style>
+  .waybar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--hp-waybar-height);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: color-mix(in srgb, var(--hp-mantle) 85%, transparent);
+    backdrop-filter: blur(var(--hp-window-blur));
+    -webkit-backdrop-filter: blur(var(--hp-window-blur));
+    border-bottom: var(--hp-border-width) solid
+      color-mix(in srgb, var(--hp-surface-0) 50%, transparent);
+    font-size: var(--hp-waybar-font-size);
+    color: var(--hp-text);
+  }
+
+  .waybar-left,
+  .waybar-center,
+  .waybar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .waybar-left {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .waybar-center {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .waybar-right {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .workspaces {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .workspace-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--hp-surface-2);
+    transition: background-color 200ms var(--bezier-snappy);
+  }
+
+  .workspace-dot.active {
+    background-color: var(--hp-accent);
+  }
+
+  .waybar-title {
+    color: var(--hp-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 640px) {
+    .waybar-center {
+      display: none;
+    }
+
+    .waybar-left {
+      flex: 0;
+    }
+  }
+
+  .tray-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .tray-icon {
+    color: var(--hp-subtext-1);
+    font-size: 13px;
+  }
+</style>

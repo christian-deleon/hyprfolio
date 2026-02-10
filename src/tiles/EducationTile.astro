@@ -1,0 +1,135 @@
+---
+import { loadConfig } from '@/lib/config';
+import type { EducationItem } from '@/types/config';
+
+interface Props {}
+
+const config = loadConfig();
+const education = config.education;
+
+const today = new Date();
+const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+---
+
+<div class="terminal-text p-4 overflow-y-auto">
+  {
+    education.length === 0 ? (
+      <div class="empty">No education entries configured.</div>
+    ) : (
+      education.map((item: EducationItem, index: number) => (
+        <div class:list={[{ 'mt-6': index > 0 }]}>
+          {/* Man page header */}
+          <div class="flex justify-between">
+            <span class="section-header">EDUCATION(7)</span>
+            <span class="date-right">{dateStr}</span>
+          </div>
+
+          <div class="mt-3">
+            <div class="section-header">NAME</div>
+            <div class="ml-6">
+              {item.institution} — {item.area}
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <div class="section-header">SYNOPSIS</div>
+            <div class="ml-6">
+              {item.studyType && (
+                <span class="synopsis-type">{item.studyType}</span>
+              )}{' '}
+              in {item.area}
+              <div class="date-range">
+                {item.startDate} — {item.endDate || 'present'}
+              </div>
+              {item.gpa && (
+                <div>
+                  GPA: <span class="gpa-value">{item.gpa}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {item.honors.length > 0 && (
+            <div class="mt-3">
+              <div class="section-header">DESCRIPTION</div>
+              <div class="ml-6">
+                {item.honors.map((h: string) => (
+                  <div class="honor-item">* {h}</div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {item.courses.length > 0 && (
+            <div class="mt-3">
+              <div class="section-header">COURSES</div>
+              <div class="ml-6 courses-list">{item.courses.join(', ')}</div>
+            </div>
+          )}
+
+          {item.url && (
+            <div class="mt-3">
+              <div class="section-header">SEE ALSO</div>
+              <div class="ml-6">
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="see-also-link"
+                >
+                  {item.url}
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      ))
+    )
+  }
+</div>
+
+<style>
+  .empty {
+    color: var(--hp-subtext-0);
+  }
+
+  .section-header {
+    color: var(--hp-accent);
+    font-weight: 700;
+  }
+
+  .date-right {
+    color: var(--hp-subtext-0);
+  }
+
+  .synopsis-type {
+    color: var(--hp-green);
+    font-weight: 700;
+  }
+
+  .date-range {
+    color: var(--hp-subtext-0);
+  }
+
+  .gpa-value {
+    color: var(--hp-yellow);
+  }
+
+  .honor-item {
+    color: var(--hp-text);
+  }
+
+  .courses-list {
+    color: var(--hp-subtext-1);
+  }
+
+  .see-also-link {
+    color: var(--hp-blue);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .see-also-link:hover {
+    color: var(--hp-accent);
+  }
+</style>

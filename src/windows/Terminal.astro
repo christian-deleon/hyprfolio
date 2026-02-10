@@ -1,0 +1,28 @@
+---
+interface Props {
+  promptPrefix?: string;
+}
+
+Astro.props;
+---
+
+<div class="terminal terminal-text">
+  <div class="terminal__content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .terminal {
+    background: transparent;
+    color: var(--hp-text);
+    padding: 12px 16px;
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+  }
+
+  .terminal__content {
+    word-break: break-word;
+  }
+</style>

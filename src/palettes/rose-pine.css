@@ -1,0 +1,25 @@
+[data-palette='rose-pine'] {
+  --hp-crust: #150f1e;
+  --hp-mantle: #1a1526;
+  --hp-base: #191724;
+  --hp-surface-0: #1f1d2e;
+  --hp-surface-1: #26233a;
+  --hp-surface-2: #2a2740;
+  --hp-overlay-0: #393552;
+  --hp-overlay-1: #524f67;
+  --hp-overlay-2: #6e6a86;
+  --hp-subtext-0: #908caa;
+  --hp-subtext-1: #b4b0ca;
+  --hp-text: #e0def4;
+  --hp-red: #eb6f92;
+  --hp-green: #31748f;
+  --hp-yellow: #f6c177;
+  --hp-blue: #9ccfd8;
+  --hp-purple: #c4a7e7;
+  --hp-pink: #ebbcba;
+  --hp-orange: #f6c177;
+  --hp-teal: #9ccfd8;
+  --hp-sky: #9ccfd8;
+  --hp-accent: #c4a7e7;
+  --hp-shadow: rgba(0, 0, 0, 0.55);
+}

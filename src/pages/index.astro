@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Desktop from '@/components/Desktop.astro';
+import { loadConfig } from '@/lib/config';
+
+const config = loadConfig();
+---
+
+<Layout>
+  <Desktop config={config} />
+</Layout>

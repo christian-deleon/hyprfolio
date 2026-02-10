@@ -1,0 +1,25 @@
+[data-palette='catppuccin-latte'] {
+  --hp-crust: #dce0e8;
+  --hp-mantle: #e6e9ef;
+  --hp-base: #eff1f5;
+  --hp-surface-0: #ccd0da;
+  --hp-surface-1: #bcc0cc;
+  --hp-surface-2: #acb0be;
+  --hp-overlay-0: #9ca0b0;
+  --hp-overlay-1: #8c8fa1;
+  --hp-overlay-2: #7c7f93;
+  --hp-subtext-0: #6c6f85;
+  --hp-subtext-1: #5c5f77;
+  --hp-text: #4c4f69;
+  --hp-red: #d20f39;
+  --hp-green: #40a02b;
+  --hp-yellow: #df8e1d;
+  --hp-blue: #1e66f5;
+  --hp-purple: #8839ef;
+  --hp-pink: #ea76cb;
+  --hp-orange: #fe640b;
+  --hp-teal: #179299;
+  --hp-sky: #04a5e5;
+  --hp-accent: #7287fd;
+  --hp-shadow: rgba(0, 0, 0, 0.15);
+}

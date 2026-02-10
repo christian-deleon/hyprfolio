@@ -1,0 +1,178 @@
+---
+import { loadConfig } from '@/lib/config';
+import type { SkillCategory, SkillItem } from '@/types/config';
+
+interface Props {}
+
+const config = loadConfig();
+const skills = config.skills;
+
+const TIER_MAP = {
+  familiar: { label: 'Familiar', min: 5, max: 25, color: 'var(--hp-green)' },
+  proficient: { label: 'Proficient', min: 26, max: 50, color: 'var(--hp-teal)' },
+  advanced: { label: 'Advanced', min: 51, max: 75, color: 'var(--hp-yellow)' },
+  expert: { label: 'Expert', min: 76, max: 100, color: 'var(--hp-purple)' },
+} as const;
+
+const BAR_FILL = '|'.repeat(120);
+
+const maxNameLen = Math.max(
+  ...skills.flatMap((cat) => cat.skills.map((s) => s.name.length)),
+  4,
+);
+
+function randomInRange(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+---
+
+<div class="skills-monitor terminal-text p-4 overflow-y-auto overflow-x-hidden">
+  {
+    skills.length === 0 ? (
+      <div class="empty">No skills configured.</div>
+    ) : (
+      skills.map((category: SkillCategory, catIdx: number) => (
+        <div class:list={[{ 'mt-3': catIdx > 0 }]}>
+          <div class="category-header">{category.category}</div>
+          <div class="bar-group">
+            {category.skills.map((skill: SkillItem) => {
+              const tier = TIER_MAP[skill.tier];
+              const startLevel = randomInRange(tier.min, tier.max);
+              return (
+                <div
+                  class="bar-row"
+                  data-skill-tier-min={tier.min}
+                  data-skill-tier-max={tier.max}
+                  data-skill-tier-color={tier.color}
+                >
+                  <span
+                    class="skill-name"
+                    style={`min-width:${maxNameLen + 2}ch`}
+                  >
+                    {skill.name}
+                  </span>
+                  <span class="bar-bracket">[</span>
+                  <span class="bar-track">
+                    <span
+                      class="bar-fill"
+                      style={`width:${startLevel}%;color:${tier.color}`}
+                    >
+                      {BAR_FILL}
+                    </span>
+                  </span>
+                  <span class="bar-bracket">]</span>
+                  <span
+                    class="tier-label"
+                    style={`color:${tier.color}`}
+                  >
+                    {tier.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))
+    )
+  }
+</div>
+
+<script>
+  function initSkillsAnimation() {
+    const rows = document.querySelectorAll<HTMLElement>(
+      '.bar-row[data-skill-tier-min]'
+    );
+    if (rows.length === 0) return;
+
+    rows.forEach((row, i) => {
+      const tierMin = parseInt(row.dataset.skillTierMin || '0', 10);
+      const tierMax = parseInt(row.dataset.skillTierMax || '100', 10);
+
+      const fillEl = row.querySelector<HTMLElement>('.bar-fill');
+      if (!fillEl) return;
+
+      // Higher tiers fluctuate faster
+      const tierMid = (tierMin + tierMax) / 2;
+      const speed = 1 - (tierMid / 100) * 0.6;
+
+      const maxStep = 6;
+      // Random start within tier range
+      let currentLevel = tierMin + Math.floor(Math.random() * (tierMax - tierMin + 1));
+
+      function tick() {
+        const step = Math.round((Math.random() * 2 - 1) * maxStep);
+        currentLevel = Math.min(tierMax, Math.max(tierMin, currentLevel + step));
+
+        fillEl!.style.width = `${currentLevel}%`;
+
+        const next = (400 + Math.random() * 800) * speed + 200;
+        setTimeout(tick, next);
+      }
+
+      // Staggered start
+      setTimeout(tick, 300 + i * 150 + Math.random() * 400);
+    });
+  }
+
+  // Respect reduced motion
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    initSkillsAnimation();
+  }
+</script>
+
+<style>
+  .empty {
+    color: var(--hp-subtext-0);
+  }
+
+  .category-header {
+    color: var(--hp-accent);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+
+  .bar-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    line-height: 1.5;
+  }
+
+  .skill-name {
+    color: var(--hp-text);
+    white-space: pre;
+    margin-right: 1ch;
+  }
+
+  .bar-bracket {
+    color: var(--hp-text);
+  }
+
+  .bar-track {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    display: block;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .tier-label {
+    font-weight: 700;
+    text-align: right;
+    min-width: 10ch;
+    white-space: nowrap;
+    margin-left: 1ch;
+  }
+</style>

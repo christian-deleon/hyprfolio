@@ -1,0 +1,22 @@
+---
+interface Props {}
+
+Astro.props;
+---
+
+<div class="image-viewer">
+  <slot />
+</div>
+
+<style>
+  .image-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 0;
+    background: var(--hp-crust);
+    padding: 16px;
+    overflow: auto;
+  }
+</style>

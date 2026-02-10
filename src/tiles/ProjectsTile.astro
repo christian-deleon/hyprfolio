@@ -1,0 +1,160 @@
+---
+import { loadConfig } from '@/lib/config';
+import type { ProjectItem } from '@/types/config';
+
+interface Props {}
+
+const config = loadConfig();
+const projects = config.projects;
+---
+
+<div class="ui-text p-4 overflow-y-auto">
+  {
+    projects.length === 0 ? (
+      <div class="empty">No projects configured.</div>
+    ) : (
+      <div class="project-grid">
+        {projects.map((project: ProjectItem) => (
+          <div class="project-card">
+            <div class="flex items-start gap-2">
+              <span class="folder-icon">
+                {project.featured ? '\u2605' : '\uD83D\uDCC1'}
+              </span>
+              <div class="flex-1 min-w-0">
+                <div class="project-title-row">
+                  {project.url ? (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-name project-name-link"
+                    >
+                      {project.name}
+                    </a>
+                  ) : (
+                    <span class="project-name">{project.name}</span>
+                  )}
+                  {project.featured && (
+                    <span class="featured-badge">featured</span>
+                  )}
+                </div>
+                {project.description && (
+                  <p class="project-desc">{project.description}</p>
+                )}
+                {project.technologies.length > 0 && (
+                  <div class="flex flex-wrap gap-1 mt-2">
+                    {project.technologies.map((tech: string) => (
+                      <span class="tech-pill">{tech}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .empty {
+    color: var(--hp-subtext-0);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project-card {
+    padding: 12px;
+    border-radius: 6px;
+    background: var(--hp-surface-0);
+    border: 1px solid var(--hp-surface-1);
+    transition:
+      transform 200ms var(--bezier-snappy),
+      border-color 200ms var(--bezier-snappy),
+      box-shadow 200ms var(--bezier-snappy),
+      background-color 200ms var(--bezier-snappy);
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--hp-accent) 50%, transparent);
+    box-shadow: 0 4px 12px var(--hp-shadow);
+    background: var(--hp-surface-1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card {
+      transition: none !important;
+    }
+
+    .project-card:hover {
+      transform: none;
+    }
+  }
+
+  .folder-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .project-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .project-name {
+    color: var(--hp-text);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .project-name-link {
+    text-decoration: none;
+  }
+
+  .project-name-link:hover {
+    color: var(--hp-accent);
+  }
+
+  .featured-badge {
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 4px;
+    font-size: 10px;
+    background: var(--hp-accent);
+    color: var(--hp-crust);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .project-desc {
+    color: var(--hp-subtext-1);
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .tech-pill {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    background: var(--hp-surface-1);
+    color: var(--hp-subtext-1);
+  }
+
+</style>

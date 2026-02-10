@@ -1,0 +1,155 @@
+---
+import { loadConfig } from '@/lib/config';
+import type { SocialLink } from '@/types/config';
+
+interface Props {}
+
+const config = loadConfig();
+const { contact, profile, social } = config;
+
+const fromEmail = contact.email || profile.email || '';
+const subject = contact.availability || "Let's Connect";
+---
+
+<div class="terminal-text p-4 flex flex-col overflow-y-auto h-full">
+  {/* Email header */}
+  <div class="header-section">
+    <div>
+      <span class="header-label">From: </span>
+      <span class="header-value">{profile.name} &lt;{fromEmail}&gt;</span>
+    </div>
+    <div>
+      <span class="header-label">To: </span>
+      <span class="header-value">Hiring Manager</span>
+    </div>
+    <div>
+      <span class="header-label">Subject: </span>
+      <span class="header-value">{subject}</span>
+    </div>
+  </div>
+
+  <div class="separator" aria-hidden="true"></div>
+
+  {/* Message body */}
+  <div class="body-section flex-1">
+    {
+      contact.message ? (
+        <p class="message-text">{contact.message}</p>
+      ) : (
+        <p class="empty-message">No message configured.</p>
+      )
+    }
+
+    {
+      contact.location && (
+        <div class="mt-3">
+          <span class="header-label">Location: </span>
+          <span class="info-value">{contact.location}</span>
+        </div>
+      )
+    }
+  </div>
+
+  {/* Attachments (social links) */}
+  {
+    social.length > 0 && (
+      <>
+        <div class="separator" aria-hidden="true" />
+        <div class="attachments-section">
+          <div class="attach-label">Attachments:</div>
+          {social.map((link: SocialLink) => (
+            <div class="attach-item">
+              <span class="attach-bullet"> - </span>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="attach-link"
+              >
+                {link.network}
+                {link.username ? ` (${link.username})` : ''}
+              </a>
+            </div>
+          ))}
+        </div>
+      </>
+    )
+  }
+
+  {/* Status bar */}
+  <div class="separator" aria-hidden="true"></div>
+  <div class="status-bar">
+    {
+      contact.preferredContact && (
+        <span class="status-text">Preferred: {contact.preferredContact}</span>
+      )
+    }
+    {fromEmail && <span class="status-text">{fromEmail}</span>}
+  </div>
+</div>
+
+<style>
+  .header-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .header-label {
+    color: var(--hp-accent);
+    font-weight: 700;
+  }
+
+  .header-value {
+    color: var(--hp-text);
+  }
+
+  .separator {
+    border-top: 1px solid var(--hp-surface-1);
+    margin: 8px 0;
+  }
+
+  .message-text {
+    color: var(--hp-text);
+    line-height: 1.6;
+  }
+
+  .empty-message {
+    color: var(--hp-subtext-0);
+  }
+
+  .info-value {
+    color: var(--hp-subtext-1);
+  }
+
+  .attach-label {
+    color: var(--hp-subtext-0);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .attach-bullet {
+    color: var(--hp-overlay-1);
+  }
+
+  .attach-link {
+    color: var(--hp-blue);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .attach-link:hover {
+    color: var(--hp-accent);
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .status-text {
+    color: var(--hp-subtext-0);
+    font-size: 11px;
+  }
+</style>

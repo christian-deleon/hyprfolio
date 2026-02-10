@@ -1,0 +1,85 @@
+---
+import type { HyprfolioConfig } from '@/types/config';
+
+interface Props {
+  config: HyprfolioConfig;
+}
+
+const { config } = Astro.props;
+const { profile, contact, social } = config;
+
+const email = contact.email || profile.email;
+const phone = contact.phone || profile.phone;
+const location = contact.location || profile.location;
+---
+
+<header class="print-header" aria-hidden="true">
+  <h1 class="print-name">{profile.name}</h1>
+  {profile.headline && <p class="print-headline">{profile.headline}</p>}
+
+  <div class="print-contact">
+    {email && <span>{email}</span>}
+    {phone && <span>{phone}</span>}
+    {location && <span>{location}</span>}
+    {profile.website && <span>{profile.website}</span>}
+  </div>
+
+  {
+    social.length > 0 && (
+      <div class="print-social">
+        {social.map((link) => (
+          <a href={link.url}>
+            {link.username ? `${link.network}: ${link.username}` : link.url}
+          </a>
+        ))}
+      </div>
+    )
+  }
+</header>
+
+<style>
+  .print-header {
+    display: none;
+  }
+
+  .print-name {
+    margin: 0 0 4pt;
+    font-size: 20pt;
+    font-weight: 700;
+    color: black;
+  }
+
+  .print-headline {
+    margin: 0 0 8pt;
+    font-size: 12pt;
+    color: #444;
+  }
+
+  .print-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8pt;
+    margin-bottom: 6pt;
+    font-size: 10pt;
+    color: #333;
+  }
+
+  .print-contact span:not(:last-child)::after {
+    content: '\00b7';
+    margin-left: 8pt;
+    color: #999;
+  }
+
+  .print-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8pt;
+    font-size: 9pt;
+    color: #555;
+  }
+
+  .print-social a {
+    color: #333;
+    text-decoration: none;
+  }
+</style>

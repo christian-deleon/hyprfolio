@@ -1,0 +1,48 @@
+---
+interface Props {
+  title?: string;
+  active?: boolean;
+}
+
+const { active = true } = Astro.props;
+---
+
+<div
+  class:list={[
+    'window-chrome',
+    'window-focus-transition',
+    { 'window-chrome--inactive': !active },
+  ]}
+>
+  <slot />
+</div>
+
+<style>
+  .window-chrome {
+    border: var(--hp-border-width) solid color-mix(in srgb, var(--hp-accent) 40%, transparent);
+    border-radius: var(--hp-border-radius);
+    background: color-mix(in srgb, var(--hp-base) var(--hp-window-opacity-pct), transparent);
+    backdrop-filter: blur(var(--hp-window-blur));
+    -webkit-backdrop-filter: blur(var(--hp-window-blur));
+    box-shadow: 0 4px 16px var(--hp-shadow);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition:
+      border-color 250ms var(--bezier-snappy),
+      box-shadow 250ms var(--bezier-snappy);
+  }
+
+  .window-chrome:hover {
+    border-color: color-mix(in srgb, var(--hp-accent) 70%, transparent);
+    box-shadow:
+      0 8px 28px var(--hp-shadow),
+      0 0 0 1px color-mix(in srgb, var(--hp-accent) 15%, transparent);
+  }
+
+  .window-chrome--inactive {
+    opacity: var(--hp-inactive-opacity);
+    border-color: color-mix(in srgb, var(--hp-surface-1) 30%, transparent);
+  }
+</style>

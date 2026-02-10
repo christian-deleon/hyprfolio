@@ -1,0 +1,41 @@
+---
+import Tile from './Tile.astro';
+import { loadConfig } from '@/lib/config';
+
+const config = loadConfig();
+const { tiles, layout } = config;
+---
+
+<div
+  class="tile-grid"
+  style={`
+    gap: ${layout.innerGap}px;
+    padding: ${layout.outerGap}px;
+    max-width: ${layout.maxWidth}px;
+  `}
+>
+  {tiles.map((tile, index) => <Tile tile={tile} index={index} />)}
+</div>
+
+<style>
+  .tile-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    margin: 0 auto;
+    width: 100%;
+    align-content: start;
+  }
+
+  @media (max-width: 1200px) {
+    .tile-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tile-grid {
+      padding: 8px !important;
+      gap: 8px !important;
+    }
+  }
+</style>

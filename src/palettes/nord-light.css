@@ -1,0 +1,25 @@
+[data-palette='nord-light'] {
+  --hp-crust: #d8dee9;
+  --hp-mantle: #e5e9f0;
+  --hp-base: #eceff4;
+  --hp-surface-0: #d8dee9;
+  --hp-surface-1: #c9d1df;
+  --hp-surface-2: #b8c2d4;
+  --hp-overlay-0: #a5b0c5;
+  --hp-overlay-1: #8e99ae;
+  --hp-overlay-2: #7b88a1;
+  --hp-subtext-0: #616e88;
+  --hp-subtext-1: #4c566a;
+  --hp-text: #2e3440;
+  --hp-red: #bf616a;
+  --hp-green: #a3be8c;
+  --hp-yellow: #ebcb8b;
+  --hp-blue: #5e81ac;
+  --hp-purple: #b48ead;
+  --hp-pink: #b48ead;
+  --hp-orange: #d08770;
+  --hp-teal: #8fbcbb;
+  --hp-sky: #88c0d0;
+  --hp-accent: #5e81ac;
+  --hp-shadow: rgba(0, 0, 0, 0.1);
+}

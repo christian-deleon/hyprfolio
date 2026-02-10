@@ -1,0 +1,248 @@
+---
+import { loadConfig } from '@/lib/config';
+
+interface Props {}
+
+const config = loadConfig();
+const { about, profile } = config;
+const systemInfo = about.systemInfo;
+const systemInfoEntries = Object.entries(systemInfo);
+
+const defaultAscii = `  ╭────┬───────╮
+  │    │       │
+  │    │       │
+  ├────╯       │
+  │       ╭────┤
+  │       │    │
+  ├───┬───┤    │
+  │   │   │    │
+  ╰───┴───┴────╯`;
+const ascii = about.ascii || defaultAscii;
+const asciiLines = ascii.split('\n');
+const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, '-');
+---
+
+<div class="about-tile terminal-text p-4">
+  <div class="flex gap-6">
+    {/* ASCII art */}
+    <pre
+      class="ascii shrink-0 leading-tight"
+      set:html={asciiLines
+        .map((line: string) => `<span>${line}</span>`)
+        .join('\n')}
+    />
+
+    {/* System info */}
+    <div class="flex flex-col gap-0.5">
+      {
+        profile.name && (
+          <div>
+            <span class="info-user">
+              {username}@hyprfolio
+            </span>
+          </div>
+        )
+      }
+      {
+        profile.name && (
+          <div class="separator">
+            {'─'.repeat(
+              Math.max(
+                20,
+                (username + '@hyprfolio')
+                  .length,
+              ),
+            )}
+          </div>
+        )
+      }
+      {
+        systemInfoEntries.map(([key, value]) => (
+          <div>
+            <span class="info-key">{key}</span>
+            <span class="info-sep">: </span>
+            <span class="info-value">{value}</span>
+          </div>
+        ))
+      }
+      {
+        profile.headline && (
+          <div>
+            <span class="info-key">Role</span>
+            <span class="info-sep">: </span>
+            <span class="info-value">{profile.headline}</span>
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  {/* Color palette bar */}
+  <div class="flex gap-1 mt-4">
+    <span class="color-block color-red">&nbsp;&nbsp;</span>
+    <span class="color-block color-green">&nbsp;&nbsp;</span>
+    <span class="color-block color-yellow">&nbsp;&nbsp;</span>
+    <span class="color-block color-blue">&nbsp;&nbsp;</span>
+    <span class="color-block color-purple">&nbsp;&nbsp;</span>
+    <span class="color-block color-pink">&nbsp;&nbsp;</span>
+    <span class="color-block color-teal">&nbsp;&nbsp;</span>
+    <span class="color-block color-sky">&nbsp;&nbsp;</span>
+  </div>
+
+  {/* Bio */}
+  {about.bio && <p class="bio mt-4" data-typeable>{about.bio}</p>}
+
+  {/* Fun facts */}
+  {
+    about.funFacts.length > 0 && (
+      <div class="mt-3">
+        {about.funFacts.map((fact: string) => (
+          <div class="fun-fact" data-typeable>
+            <span class="bullet"> * </span>
+            {fact}
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<script>
+  function initTypingAnimation() {
+    const tile = document.querySelector('.about-tile');
+    if (!tile) return;
+
+    const elements = Array.from(
+      tile.querySelectorAll<HTMLElement>('[data-typeable]')
+    );
+    if (elements.length === 0) return;
+
+    // Lock tile height before clearing content to prevent layout shift
+    const tileEl = tile as HTMLElement;
+    tileEl.style.minHeight = `${tileEl.offsetHeight}px`;
+
+    // Capture original HTML and hide content
+    const originals = elements.map((el) => {
+      const html = el.innerHTML;
+      el.textContent = '';
+      el.style.visibility = 'visible';
+      return { el, html };
+    });
+
+    const CHAR_SPEED = 18;
+    const LINE_GAP = 60;
+
+    function typeElement(el: HTMLElement, html: string): Promise<void> {
+      // Extract plain text for typing, then restore full HTML at the end
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+      const fullText = temp.textContent || '';
+
+      return new Promise((resolve) => {
+        let i = 0;
+        function tick() {
+          if (i < fullText.length) {
+            i++;
+            el.textContent = fullText.slice(0, i);
+            setTimeout(tick, CHAR_SPEED);
+          } else {
+            // Restore original HTML (preserves any inner spans)
+            el.innerHTML = html;
+            resolve();
+          }
+        }
+        tick();
+      });
+    }
+
+    async function run() {
+      for (const { el, html } of originals) {
+        await typeElement(el, html);
+        await new Promise((r) => setTimeout(r, LINE_GAP));
+      }
+      // Release height lock
+      tileEl.style.minHeight = '';
+    }
+
+    setTimeout(run, 600);
+  }
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    initTypingAnimation();
+  }
+</script>
+
+<style>
+  .about-tile {
+    position: relative;
+  }
+
+  .ascii {
+    color: var(--hp-accent);
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .info-user {
+    color: var(--hp-accent);
+    font-weight: 700;
+  }
+
+  .separator {
+    color: var(--hp-overlay-1);
+  }
+
+  .info-key {
+    color: var(--hp-accent);
+    font-weight: 700;
+  }
+
+  .info-sep {
+    color: var(--hp-overlay-1);
+  }
+
+  .info-value {
+    color: var(--hp-text);
+  }
+
+  .color-block {
+    border-radius: 2px;
+  }
+
+  .color-red {
+    background: var(--hp-red);
+  }
+  .color-green {
+    background: var(--hp-green);
+  }
+  .color-yellow {
+    background: var(--hp-yellow);
+  }
+  .color-blue {
+    background: var(--hp-blue);
+  }
+  .color-purple {
+    background: var(--hp-purple);
+  }
+  .color-pink {
+    background: var(--hp-pink);
+  }
+  .color-teal {
+    background: var(--hp-teal);
+  }
+  .color-sky {
+    background: var(--hp-sky);
+  }
+
+  .bio {
+    color: var(--hp-subtext-1);
+  }
+
+  .fun-fact {
+    color: var(--hp-subtext-0);
+  }
+
+  .bullet {
+    color: var(--hp-green);
+  }
+</style>

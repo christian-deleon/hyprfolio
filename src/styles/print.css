@@ -1,0 +1,96 @@
+/* ─── Print Styles ───────────────────────────────────────────────────────── */
+
+@media print {
+  /* Hide desktop chrome */
+  .waybar,
+  .wallpaper-bg,
+  .window-chrome-border,
+  .palette-switcher,
+  .tile-grid-outer,
+  .desktop-container {
+    all: unset !important;
+  }
+
+  /* Show print header */
+  .print-header {
+    display: block !important;
+    margin-bottom: 24pt;
+  }
+
+  /* Hide interactive elements */
+  .palette-switcher,
+  .clock-widget {
+    display: none !important;
+  }
+
+  /* Reset to print defaults */
+  html,
+  body {
+    background: white !important;
+    color: black !important;
+    font-family:
+      'Inter',
+      system-ui,
+      -apple-system,
+      sans-serif !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Single column layout */
+  .tile-grid {
+    display: block !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    max-width: none !important;
+  }
+
+  /* Remove tile visual effects */
+  .tile-entrance,
+  .tile-hover {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .tile-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 12pt;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* Terminal styling for print */
+  .terminal-text {
+    font-family: 'Courier New', monospace !important;
+    font-size: 10pt !important;
+    color: black !important;
+  }
+
+  /* Links */
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+
+  a[href^='#']::after,
+  a[href^='javascript:']::after {
+    content: '';
+  }
+
+  /* Page setup */
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+}

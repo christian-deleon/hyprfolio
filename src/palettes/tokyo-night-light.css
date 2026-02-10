@@ -1,0 +1,25 @@
+[data-palette='tokyo-night-light'] {
+  --hp-crust: #d5d6db;
+  --hp-mantle: #dcdee4;
+  --hp-base: #d5d6db;
+  --hp-surface-0: #c4c5cb;
+  --hp-surface-1: #b4b5bc;
+  --hp-surface-2: #a4a5ad;
+  --hp-overlay-0: #9699a3;
+  --hp-overlay-1: #8990a3;
+  --hp-overlay-2: #6c7086;
+  --hp-subtext-0: #565a6e;
+  --hp-subtext-1: #4e5064;
+  --hp-text: #343b58;
+  --hp-red: #8c4351;
+  --hp-green: #485e30;
+  --hp-yellow: #8f5e15;
+  --hp-blue: #34548a;
+  --hp-purple: #5a4a78;
+  --hp-pink: #b52a5b;
+  --hp-orange: #965027;
+  --hp-teal: #33635c;
+  --hp-sky: #166775;
+  --hp-accent: #34548a;
+  --hp-shadow: rgba(0, 0, 0, 0.12);
+}

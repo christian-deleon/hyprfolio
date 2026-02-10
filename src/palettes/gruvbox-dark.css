@@ -1,0 +1,25 @@
+[data-palette='gruvbox-dark'] {
+  --hp-crust: #1d2021;
+  --hp-mantle: #282828;
+  --hp-base: #282828;
+  --hp-surface-0: #3c3836;
+  --hp-surface-1: #504945;
+  --hp-surface-2: #665c54;
+  --hp-overlay-0: #7c6f64;
+  --hp-overlay-1: #928374;
+  --hp-overlay-2: #a89984;
+  --hp-subtext-0: #bdae93;
+  --hp-subtext-1: #d5c4a1;
+  --hp-text: #ebdbb2;
+  --hp-red: #fb4934;
+  --hp-green: #b8bb26;
+  --hp-yellow: #fabd2f;
+  --hp-blue: #83a598;
+  --hp-purple: #d3869b;
+  --hp-pink: #d3869b;
+  --hp-orange: #fe8019;
+  --hp-teal: #8ec07c;
+  --hp-sky: #83a598;
+  --hp-accent: #458588;
+  --hp-shadow: rgba(0, 0, 0, 0.5);
+}

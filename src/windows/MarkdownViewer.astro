@@ -1,0 +1,20 @@
+---
+interface Props {}
+
+Astro.props;
+---
+
+<div class="markdown-viewer prose">
+  <slot />
+</div>
+
+<style>
+  .markdown-viewer {
+    flex: 1;
+    min-height: 0;
+    background: transparent;
+    color: var(--hp-text);
+    padding: 16px 24px;
+    overflow: auto;
+  }
+</style>

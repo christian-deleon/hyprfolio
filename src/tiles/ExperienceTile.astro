@@ -1,0 +1,178 @@
+---
+import { loadConfig } from '@/lib/config';
+import type { ExperienceItem } from '@/types/config';
+
+interface Props {}
+
+const config = loadConfig();
+const experience = config.experience;
+const profileName = config.profile.name;
+const profileEmail = config.profile.email || config.contact.email || '';
+
+function generateHash(company: string, position: string): string {
+  let hash = 0;
+  const str = company + position;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(16).padStart(7, '0').slice(0, 7);
+}
+
+function mdBold(text: string): string {
+  return text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+// Build flat line array for line numbering
+interface Line {
+  html: string;
+  blank?: boolean;
+}
+
+const lines: Line[] = [];
+
+// Header lines once at the top
+const firstItem = experience[0];
+const topHash = firstItem ? generateHash(firstItem.company, firstItem.position) : '0000000';
+const topHeadRef = firstItem?.current ? ' <span class="head-ref">(HEAD -&gt; main)</span>' : '';
+lines.push({ html: `<span class="commit-label">commit </span><span class="commit-hash">${topHash}</span>${topHeadRef}` });
+lines.push({ html: `<span class="field-label">Author: </span><span class="field-value">${profileName} &lt;${profileEmail}&gt;</span>` });
+lines.push({ html: '', blank: true });
+
+experience.forEach((item: ExperienceItem, index: number) => {
+  if (index > 0) {
+    lines.push({ html: '', blank: true });
+  }
+
+  lines.push({ html: `<span class="field-label">Date: </span><span class="field-value">${item.startDate} — ${item.endDate || 'present'}</span>` });
+
+  if (item.location) {
+    lines.push({ html: `<span class="field-label">Origin: </span><span class="field-value">${item.location}</span>` });
+  }
+
+  lines.push({ html: '', blank: true });
+  lines.push({ html: `<span class="commit-company">  ${item.position} @ ${item.company}</span>` });
+
+  if (item.summary) {
+    lines.push({ html: `<span class="commit-summary">  ${item.summary}</span>` });
+  }
+
+  if (item.highlights.length > 0) {
+    item.highlights.forEach((h: string) => {
+      lines.push({ html: `<span class="highlight"><span class="highlight-bullet">   - </span><span class="highlight-text">${mdBold(h)}</span></span>` });
+    });
+  }
+});
+---
+
+<div class="editor-experience terminal-text overflow-y-auto">
+  <div class="editor-lines">
+    {lines.map((line, i) => (
+      <div class="editor-line">
+        <span class="line-number">{String(i + 1).padStart(3, ' ')}</span>
+        <span class="line-content" set:html={line.blank ? '&nbsp;' : line.html} />
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .editor-experience {
+    padding: 8px 0;
+  }
+
+  .editor-lines {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editor-line {
+    display: flex;
+    align-items: baseline;
+    padding: 0 12px 0 0;
+    transition: background-color 150ms var(--bezier-snappy);
+  }
+
+  .editor-line:hover {
+    background: color-mix(in srgb, var(--hp-surface-0) 50%, transparent);
+  }
+
+  .line-number {
+    color: var(--hp-overlay-0);
+    white-space: pre;
+    text-align: right;
+    min-width: 4ch;
+    padding: 0 12px 0 8px;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  .line-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .empty {
+    color: var(--hp-subtext-0);
+  }
+
+  .line-content :global(.commit-label) {
+    color: var(--hp-subtext-0);
+  }
+
+  .line-content :global(.commit-hash) {
+    color: var(--hp-yellow);
+  }
+
+  .line-content :global(.head-ref) {
+    color: var(--hp-green);
+    font-weight: 700;
+  }
+
+  .line-content :global(.field-label) {
+    color: var(--hp-subtext-0);
+  }
+
+  .line-content :global(.field-value) {
+    color: var(--hp-text);
+  }
+
+  .line-content :global(.commit-company) {
+    color: var(--hp-text);
+    font-weight: 700;
+    white-space: pre;
+  }
+
+  .line-content :global(.commit-summary) {
+    color: var(--hp-subtext-1);
+    white-space: pre;
+  }
+
+  .line-content :global(.highlight) {
+    color: var(--hp-subtext-1);
+    display: inline-flex;
+  }
+
+  .line-content :global(.highlight-bullet) {
+    white-space: pre;
+    flex-shrink: 0;
+  }
+
+  .line-content :global(.highlight-text) {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .line-content :global(.highlight-text strong) {
+    color: var(--hp-accent);
+    font-weight: 700;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .editor-line {
+      transition: none !important;
+    }
+  }
+</style>

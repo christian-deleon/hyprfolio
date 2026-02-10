@@ -1,0 +1,75 @@
+---
+interface Props {
+  path?: string;
+}
+
+const { path = '~/Projects' } = Astro.props;
+
+const pathSegments = path.split('/').filter(Boolean);
+---
+
+<div class="file-manager ui-text">
+  <div class="file-manager__breadcrumb terminal-text">
+    {
+      pathSegments.map((segment, i) => (
+        <Fragment>
+          {i > 0 && <span class="file-manager__separator">/</span>}
+          <span class="file-manager__segment">{segment}</span>
+        </Fragment>
+      ))
+    }
+  </div>
+  <div class="file-manager__content">
+    <slot />
+  </div>
+  <div class="file-manager__status-bar terminal-text">
+    <span>Ready</span>
+  </div>
+</div>
+
+<style>
+  .file-manager {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .file-manager__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: var(--hp-surface-0);
+    color: var(--hp-subtext-0);
+    font-size: 12px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .file-manager__separator {
+    color: var(--hp-overlay-0);
+  }
+
+  .file-manager__segment {
+    color: var(--hp-text);
+  }
+
+  .file-manager__content {
+    flex: 1;
+    background: transparent;
+    padding: 12px 16px;
+    overflow: auto;
+    min-height: 0;
+    color: var(--hp-text);
+  }
+
+  .file-manager__status-bar {
+    display: flex;
+    padding: 2px 12px;
+    background: var(--hp-surface-0);
+    color: var(--hp-subtext-0);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+</style>

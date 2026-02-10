@@ -1,0 +1,38 @@
+---
+interface Props {
+  customContent?: string;
+  customHtml?: string;
+}
+
+const { customContent, customHtml } = Astro.props;
+---
+
+<div class="terminal-text p-4 overflow-y-auto">
+  {
+    customHtml ? (
+      <Fragment set:html={customHtml} />
+    ) : customContent ? (
+      <pre class="custom-content">{customContent}</pre>
+    ) : (
+      <div class="empty">
+        <span class="prompt">~</span> No content configured for this tile.
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .custom-content {
+    color: var(--hp-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .empty {
+    color: var(--hp-subtext-0);
+  }
+
+  .prompt {
+    color: var(--hp-accent);
+  }
+</style>

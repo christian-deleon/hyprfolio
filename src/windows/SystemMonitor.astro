@@ -1,0 +1,42 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'System Monitor' } = Astro.props;
+---
+
+<div class="system-monitor terminal-text">
+  <div class="system-monitor__header">
+    {title}
+  </div>
+  <div class="system-monitor__content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .system-monitor {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    background: transparent;
+    color: var(--hp-text);
+  }
+
+  .system-monitor__header {
+    padding: 6px 12px;
+    font-weight: 700;
+    color: var(--hp-accent);
+    border-bottom: 1px solid var(--hp-surface-0);
+    flex-shrink: 0;
+  }
+
+  .system-monitor__content {
+    flex: 1;
+    padding: 12px 16px;
+    overflow: auto;
+    min-height: 0;
+  }
+</style>

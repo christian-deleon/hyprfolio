@@ -1,0 +1,26 @@
+---
+import AboutTile from '@/tiles/AboutTile.astro';
+import ExperienceTile from '@/tiles/ExperienceTile.astro';
+import EducationTile from '@/tiles/EducationTile.astro';
+import SkillsTile from '@/tiles/SkillsTile.astro';
+import ProjectsTile from '@/tiles/ProjectsTile.astro';
+import CertificationsTile from '@/tiles/CertificationsTile.astro';
+import ContactTile from '@/tiles/ContactTile.astro';
+import CustomTile from '@/tiles/CustomTile.astro';
+import type { TileContent as TileContentType } from '@/types/config';
+
+interface Props {
+  content: TileContentType;
+}
+
+const { content } = Astro.props;
+---
+
+{content === 'about' && <AboutTile />}
+{content === 'experience' && <ExperienceTile />}
+{content === 'education' && <EducationTile />}
+{content === 'skills' && <SkillsTile />}
+{content === 'projects' && <ProjectsTile />}
+{content === 'certifications' && <CertificationsTile />}
+{content === 'contact' && <ContactTile />}
+{content === 'custom' && <CustomTile />}

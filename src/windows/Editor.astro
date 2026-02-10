@@ -1,0 +1,78 @@
+---
+interface Props {
+  filename?: string;
+}
+
+const { filename = 'untitled' } = Astro.props;
+---
+
+<div class="editor">
+  <div class="editor__body">
+    <div class="editor__gutter terminal-text" aria-hidden="true">
+      {
+        Array.from({ length: 20 }, (_, i) => (
+          <span class="editor__line-number">{i + 1}</span>
+        ))
+      }
+    </div>
+    <div class="editor__content terminal-text">
+      <slot />
+    </div>
+  </div>
+  <div class="editor__status-bar terminal-text">
+    <span>{filename}</span>
+    <span>NORMAL</span>
+  </div>
+</div>
+
+<style>
+  .editor {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .editor__body {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+  }
+
+  .editor__gutter {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    background: var(--hp-surface-0);
+    color: var(--hp-overlay-0);
+    text-align: right;
+    user-select: none;
+    flex-shrink: 0;
+    min-width: 40px;
+  }
+
+  .editor__line-number {
+    padding: 0 8px;
+    line-height: 1.5;
+  }
+
+  .editor__content {
+    flex: 1;
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--hp-text);
+    overflow: auto;
+    min-height: 0;
+  }
+
+  .editor__status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 12px;
+    background: var(--hp-surface-0);
+    color: var(--hp-subtext-0);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+</style>
