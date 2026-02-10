@@ -6,9 +6,6 @@ interface Props {}
 
 const config = loadConfig();
 const education = config.education;
-
-const today = new Date();
-const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 ---
 
 <div class="terminal-text p-4 overflow-y-auto">
@@ -17,69 +14,49 @@ const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
       <div class="empty">No education entries configured.</div>
     ) : (
       education.map((item: EducationItem, index: number) => (
-        <div class:list={[{ 'mt-6': index > 0 }]}>
-          {/* Man page header */}
-          <div class="flex justify-between">
-            <span class="section-header">EDUCATION(7)</span>
-            <span class="date-right">{dateStr}</span>
+        <div class:list={['entry', { 'mt-4': index > 0 }]}>
+          <div class="entry-header">
+            <span class="institution">{item.institution}</span>
+            <span class="date-range">
+              {item.startDate} — {item.endDate || 'present'}
+            </span>
           </div>
-
-          <div class="mt-3">
-            <div class="section-header">NAME</div>
-            <div class="ml-6">
-              {item.institution} — {item.area}
-            </div>
+          <div class="entry-detail">
+            {item.studyType && (
+              <span class="study-type">{item.studyType}</span>
+            )}
+            {item.studyType && item.area && (
+              <span class="separator"> · </span>
+            )}
+            <span class="area">{item.area}</span>
+            {item.gpa && (
+              <span class="gpa"> · GPA: {item.gpa}</span>
+            )}
           </div>
-
-          <div class="mt-3">
-            <div class="section-header">SYNOPSIS</div>
-            <div class="ml-6">
-              {item.studyType && (
-                <span class="synopsis-type">{item.studyType}</span>
-              )}{' '}
-              in {item.area}
-              <div class="date-range">
-                {item.startDate} — {item.endDate || 'present'}
-              </div>
-              {item.gpa && (
-                <div>
-                  GPA: <span class="gpa-value">{item.gpa}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
           {item.honors.length > 0 && (
-            <div class="mt-3">
-              <div class="section-header">DESCRIPTION</div>
-              <div class="ml-6">
-                {item.honors.map((h: string) => (
-                  <div class="honor-item">* {h}</div>
-                ))}
-              </div>
+            <div class="honors">
+              {item.honors.map((h: string) => (
+                <span class="honor-item">  * {h}</span>
+              ))}
             </div>
           )}
-
           {item.courses.length > 0 && (
-            <div class="mt-3">
-              <div class="section-header">COURSES</div>
-              <div class="ml-6 courses-list">{item.courses.join(', ')}</div>
+            <div class="courses">
+              {item.courses.map((c: string, i: number) => (
+                <span class="course-tag">{c}{i < item.courses.length - 1 ? ', ' : ''}</span>
+              ))}
             </div>
           )}
-
           {item.url && (
-            <div class="mt-3">
-              <div class="section-header">SEE ALSO</div>
-              <div class="ml-6">
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="see-also-link"
-                >
-                  {item.url}
-                </a>
-              </div>
+            <div class="link-row">
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="see-also-link"
+              >
+                {item.url}
+              </a>
             </div>
           )}
         </div>
@@ -93,34 +70,69 @@ const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
     color: var(--hp-subtext-0);
   }
 
-  .section-header {
+  .entry + .entry {
+    border-top: 1px solid var(--hp-surface-1);
+    padding-top: 1rem;
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .institution {
     color: var(--hp-accent);
-    font-weight: 700;
-  }
-
-  .date-right {
-    color: var(--hp-subtext-0);
-  }
-
-  .synopsis-type {
-    color: var(--hp-green);
     font-weight: 700;
   }
 
   .date-range {
     color: var(--hp-subtext-0);
+    white-space: nowrap;
   }
 
-  .gpa-value {
-    color: var(--hp-yellow);
-  }
-
-  .honor-item {
+  .entry-detail {
+    margin-top: 0.125rem;
     color: var(--hp-text);
   }
 
-  .courses-list {
+  .study-type {
+    color: var(--hp-green);
+  }
+
+  .separator {
+    color: var(--hp-overlay-1);
+  }
+
+  .area {
+    color: var(--hp-text);
+  }
+
+  .gpa {
+    color: var(--hp-yellow);
+  }
+
+  .honors {
+    margin-top: 0.375rem;
+  }
+
+  .honor-item {
+    display: block;
     color: var(--hp-subtext-1);
+  }
+
+  .courses {
+    margin-top: 0.375rem;
+    color: var(--hp-subtext-0);
+  }
+
+  .course-tag {
+    color: var(--hp-subtext-0);
+  }
+
+  .link-row {
+    margin-top: 0.25rem;
   }
 
   .see-also-link {
