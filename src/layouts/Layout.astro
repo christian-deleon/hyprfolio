@@ -98,7 +98,8 @@ const layoutVars = [
     >
       (function () {
         var stored = localStorage.getItem('hyprfolio-palette');
-        if (stored) {
+        var manual = localStorage.getItem('hyprfolio-palette-manual');
+        if (stored && manual) {
           document.documentElement.dataset.palette = stored;
           return;
         }
@@ -108,7 +109,7 @@ const layoutVars = [
             ? paletteDefault
             : paletteDefaultLight;
           prefersDark.addEventListener('change', function (e) {
-            if (!localStorage.getItem('hyprfolio-palette')) {
+            if (!localStorage.getItem('hyprfolio-palette-manual')) {
               document.documentElement.dataset.palette = e.matches
                 ? paletteDefault
                 : paletteDefaultLight;
