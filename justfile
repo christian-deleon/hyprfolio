@@ -7,6 +7,8 @@ set quiet := true
 default:
     just --list --unsorted
 
+# ─── Development ──────────────────────────────────────────────────────────────
+
 # Install dependencies
 install:
     npm install
@@ -27,6 +29,8 @@ build:
 preview:
     npx astro preview
 
+# ─── Quality ─────────────────────────────────────────────────────────────────
+
 # Run config validation standalone
 validate:
     npx tsx src/lib/validate.ts
@@ -43,12 +47,39 @@ format-check:
 typecheck:
     npx astro check
 
+# Run CI checks (format + typecheck + build)
+ci: format-check typecheck build
+
+# ─── Docker ─────────────────────────────────────────────────────────────────
+
+image := "ghcr.io/christian-deleon/hyprfolio"
+tag := "latest"
+
+# Build Docker image
+docker-build:
+    docker build -t {{image}}:{{tag}} .
+
+# Run container with config directory (default: current dir)
+docker-run config=".":
+    docker run --rm -p 8080:8080 -v "$(cd {{config}} && pwd):/config" {{image}}:{{tag}}
+
+# Run container in background
+docker-up config=".":
+    docker run -d -p 8080:8080 --name hyprfolio -v "$(cd {{config}} && pwd):/config" {{image}}:{{tag}}
+
+# Stop and remove container
+docker-down:
+    docker stop hyprfolio && docker rm hyprfolio
+
+# Show container logs
+docker-logs:
+    docker logs -f hyprfolio
+
+# ─── Maintenance ─────────────────────────────────────────────────────────────
+
 # Clean build artifacts
 clean:
     rm -rf dist .astro node_modules/.cache
-
-# Run CI checks (format + typecheck + build)
-ci: format-check typecheck build
 
 # Create a new palette from template
 new-palette name:
