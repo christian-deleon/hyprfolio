@@ -1,0 +1,9 @@
+services:
+  hyprfolio:
+    image: ghcr.io/christian-deleon/hyprfolio:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/config
+    env_file:
+      - .env
