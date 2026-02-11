@@ -52,6 +52,7 @@ echo "Config valid."
 
 # --- 5. Build site ---
 echo "Building site..."
+export ASTRO_ADAPTER=node
 npx astro build
 echo "Build complete."
 
