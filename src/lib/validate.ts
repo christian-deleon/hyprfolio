@@ -69,7 +69,7 @@ function main() {
     ['experience', config.experience.length],
     ['education', config.education.length],
     ['skills', config.skills.length],
-    ['projects', config.projects.length],
+    ['projects', config.projects.items.length],
     ['certifications', config.certifications.length],
   ].filter(([, count]) => (count as number) > 0);
 

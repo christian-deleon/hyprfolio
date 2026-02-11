@@ -52,9 +52,12 @@ echo "Config valid."
 
 # --- 5. Build site ---
 echo "Building site..."
+export ASTRO_ADAPTER=node
 npx astro build
 echo "Build complete."
 
-# --- 6. Start nginx ---
-echo "Starting nginx on port 8080..."
-exec nginx -g 'daemon off;'
+# --- 6. Start Node server ---
+echo "Starting server on port 8080..."
+export HOST=0.0.0.0
+export PORT=8080
+exec node dist/server/entry.mjs

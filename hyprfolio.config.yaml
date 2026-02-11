@@ -267,49 +267,55 @@ skills:
         tier: proficient
 
 # ─── Projects ────────────────────────────────────────────────────────────────
+# Set projects.github.username to fetch pinned repos from GitHub automatically.
+# Requires the GITHUB_TOKEN environment variable (PAT with public_repo + read:user).
+# Manual items below are used as a fallback if GitHub is disabled or unavailable.
 
 projects:
-  - name: 'fsociety-tools'
-    description: 'Collection of custom penetration testing and network reconnaissance utilities.'
-    url: 'https://github.com/mr-robot-00/fsociety-tools'
-    technologies:
-      - Python
-      - C
-      - Shell
-    highlights:
-      - 'Custom exploit frameworks'
-      - 'Network enumeration automation'
-    featured: true
+  # github:
+  #   username: mr-robot-00
+  items:
+    - name: 'fsociety-tools'
+      description: 'Collection of custom penetration testing and network reconnaissance utilities.'
+      url: 'https://github.com/mr-robot-00/fsociety-tools'
+      technologies:
+        - Python
+        - C
+        - Shell
+      highlights:
+        - 'Custom exploit frameworks'
+        - 'Network enumeration automation'
+      featured: true
 
-  - name: 'cryptwall'
-    description: 'File encryption toolkit using AES-256 with secure key management.'
-    url: 'https://github.com/mr-robot-00/cryptwall'
-    technologies:
-      - Python
-      - Cryptography
-    highlights:
-      - 'Military-grade encryption at rest'
-      - 'Zero-knowledge key derivation'
-    featured: true
+    - name: 'cryptwall'
+      description: 'File encryption toolkit using AES-256 with secure key management.'
+      url: 'https://github.com/mr-robot-00/cryptwall'
+      technologies:
+        - Python
+        - Cryptography
+      highlights:
+        - 'Military-grade encryption at rest'
+        - 'Zero-knowledge key derivation'
+      featured: true
 
-  - name: 'dotfiles'
-    description: 'My Kali Linux rice. Paranoid-grade development environment.'
-    url: 'https://github.com/mr-robot-00/dotfiles'
-    technologies:
-      - Shell
-      - Lua
-      - Python
-    highlights:
-      - 'Full disk encryption + ephemeral sessions'
-    featured: true
+    - name: 'dotfiles'
+      description: 'My Kali Linux rice. Paranoid-grade development environment.'
+      url: 'https://github.com/mr-robot-00/dotfiles'
+      technologies:
+        - Shell
+        - Lua
+        - Python
+      highlights:
+        - 'Full disk encryption + ephemeral sessions'
+      featured: true
 
-  - name: 'netwatch'
-    description: 'Real-time network traffic monitor and anomaly detector.'
-    url: 'https://github.com/mr-robot-00/netwatch'
-    technologies:
-      - C
-      - Python
-    featured: false
+    - name: 'netwatch'
+      description: 'Real-time network traffic monitor and anomaly detector.'
+      url: 'https://github.com/mr-robot-00/netwatch'
+      technologies:
+        - C
+        - Python
+      featured: false
 
 # ─── Certifications ──────────────────────────────────────────────────────────
 

@@ -2,7 +2,6 @@
 
 set quiet := true
 
-# List all available commands
 [private]
 default:
     just --list --unsorted
@@ -52,28 +51,41 @@ ci: format-check typecheck build
 
 # ─── Docker ─────────────────────────────────────────────────────────────────
 
-image := "ghcr.io/christian-deleon/hyprfolio"
-tag := "latest"
+[private]
+dc *args:
+    docker compose {{args}}
 
-# Build Docker image
+[private]
+dc-dev *args:
+    docker compose -f compose.dev.yaml {{args}}
+
+# Build local dev image
 docker-build:
-    docker build -t {{image}}:{{tag}} .
+    just dc-dev build
 
-# Run container with config directory (default: current dir)
-docker-run config=".":
-    docker run --rm -p 8080:8080 -v "$(cd {{config}} && pwd):/config" {{image}}:{{tag}}
+# Start container (pulls official image)
+docker-up:
+    just dc up --detach
 
-# Run container in background
-docker-up config=".":
-    docker run -d -p 8080:8080 --name hyprfolio -v "$(cd {{config}} && pwd):/config" {{image}}:{{tag}}
+# Build and start container (local dev image)
+docker-up-dev:
+    just dc-dev up --build --detach
 
 # Stop and remove container
 docker-down:
-    docker stop hyprfolio && docker rm hyprfolio
+    just dc down
+
+# Stop and remove dev container
+docker-down-dev:
+    just dc-dev down
 
 # Show container logs
 docker-logs:
-    docker logs -f hyprfolio
+    just dc logs -f
+
+# Show dev container logs
+docker-logs-dev:
+    just dc-dev logs -f
 
 # ─── Maintenance ─────────────────────────────────────────────────────────────
 

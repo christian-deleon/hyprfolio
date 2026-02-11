@@ -1,0 +1,11 @@
+services:
+  hyprfolio:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/config
+    environment:
+      - ASTRO_ADAPTER=node
+    env_file:
+      - .env

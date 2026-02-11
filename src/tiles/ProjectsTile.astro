@@ -1,11 +1,24 @@
 ---
 import { loadConfig } from '@/lib/config';
+import { fetchPinnedRepos } from '@/lib/github';
 import type { ProjectItem } from '@/types/config';
 
 interface Props {}
 
 const config = loadConfig();
-const projects = config.projects;
+const { github, items } = config.projects;
+
+let projects: ProjectItem[] = items;
+
+if (github) {
+  try {
+    projects = await fetchPinnedRepos(github.username);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn(`Failed to fetch GitHub pinned repos: ${message}`);
+    console.warn('Falling back to manually configured projects.');
+  }
+}
 ---
 
 <div class="ui-text p-4 overflow-y-auto">

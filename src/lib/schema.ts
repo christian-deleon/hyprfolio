@@ -253,6 +253,15 @@ export const ProjectItemSchema = z.object({
   featured: z.boolean().default(false),
 });
 
+export const ProjectsGithubSchema = z.object({
+  username: z.string().min(1, 'GitHub username is required when github is configured'),
+});
+
+export const ProjectsSchema = z.object({
+  github: ProjectsGithubSchema.optional(),
+  items: z.array(ProjectItemSchema).default([]),
+});
+
 // ─── Certifications ─────────────────────────────────────────────────────────
 
 export const CertificationItemSchema = z.object({
@@ -487,7 +496,7 @@ export const HyprfolioConfigSchema = z.object({
   experience: z.array(ExperienceItemSchema).default([]),
   education: z.array(EducationItemSchema).default([]),
   skills: z.array(SkillCategorySchema).default([]),
-  projects: z.array(ProjectItemSchema).default([]),
+  projects: ProjectsSchema.default({}),
   certifications: z.array(CertificationItemSchema).default([]),
 
   // Extended CV
