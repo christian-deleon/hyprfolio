@@ -1,6 +1,9 @@
 import type { ProjectItem } from '@/types/config';
 
 const GITHUB_GRAPHQL_ENDPOINT = 'https://api.github.com/graphql';
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+let cache: { data: ProjectItem[]; timestamp: number } | null = null;
 
 const PINNED_REPOS_QUERY = `
   query($username: String!) {
@@ -54,6 +57,10 @@ interface GitHubGraphQLResponse {
 export async function fetchPinnedRepos(
   username: string,
 ): Promise<ProjectItem[]> {
+  if (cache && Date.now() - cache.timestamp < CACHE_TTL_MS) {
+    return cache.data;
+  }
+
   const token = import.meta.env.GITHUB_TOKEN;
 
   if (!token) {
@@ -94,7 +101,9 @@ export async function fetchPinnedRepos(
     throw new Error(`GitHub user "${username}" not found or has no pinned items`);
   }
 
-  return repos.map(repoToProjectItem);
+  const data = repos.map(repoToProjectItem);
+  cache = { data, timestamp: Date.now() };
+  return data;
 }
 
 function repoToProjectItem(repo: GitHubPinnedRepo): ProjectItem {
