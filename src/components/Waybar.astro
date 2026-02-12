@@ -13,7 +13,8 @@ const { waybar, palette, profile } = config;
 const workspaceCount = waybar.workspaces;
 const activeWorkspace = waybar.activeWorkspace;
 const trayIcons = waybar.trayIcons;
-const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, '-');
+const username =
+  profile.username || profile.name.toLowerCase().replace(/\s+/g, '-');
 const title = waybar.title || `${username}@hyprfolio ~`;
 ---
 

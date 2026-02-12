@@ -91,7 +91,9 @@ export async function fetchPinnedRepos(
   const repos = json.data?.user?.pinnedItems?.nodes;
 
   if (!repos) {
-    throw new Error(`GitHub user "${username}" not found or has no pinned items`);
+    throw new Error(
+      `GitHub user "${username}" not found or has no pinned items`,
+    );
   }
 
   return repos.map(repoToProjectItem);
