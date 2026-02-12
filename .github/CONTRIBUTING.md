@@ -41,7 +41,7 @@ Thanks for your interest in contributing!
 | Command                   | Description                                 |
 | ------------------------- | ------------------------------------------- |
 | `just install`            | Install npm dependencies                    |
-| `just dev`                | Start Astro dev server (`localhost:4321`)    |
+| `just dev`                | Start Astro dev server (`localhost:4321`)   |
 | `just build`              | Production build to `dist/`                 |
 | `just preview`            | Preview production build locally            |
 | `just validate`           | Run config validation standalone            |

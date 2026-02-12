@@ -1,7 +1,7 @@
 ---
 name: commit
 description: Categorize all uncommitted changes into logical buckets and commit each one separately using conventional commits.
-argument-hint: "[description of changes to commit]"
+argument-hint: '[description of changes to commit]'
 disable-model-invocation: true
 ---
 
