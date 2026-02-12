@@ -78,21 +78,21 @@ waybar:
   activeWorkspace: 1
   showClock: true
   showPaletteSwitcher: true
-  height: 36              # px
-  fontSize: 13            # px
+  height: 36 # px
+  fontSize: 13 # px
 
 layout:
   maxWidth: 1400
-  innerGap: 10            # px, gap between tiles
-  outerGap: 20            # px, padding around tile grid
-  windowOpacity: 0.6      # 0 = fully transparent, 1 = fully opaque
-  windowBlur: 10          # px, backdrop blur on windows
-  borderRadius: 10        # px, window corner rounding
-  borderWidth: 1          # px, window border thickness
-  inactiveOpacity: 0.85   # dimming for inactive windows
-  noiseOpacity: 0.03      # grain overlay intensity (0 to disable)
-  terminalFontSize: 13    # px, monospace/terminal font size
-  uiFontSize: 14          # px, UI/sans-serif font size
+  innerGap: 10 # px, gap between tiles
+  outerGap: 20 # px, padding around tile grid
+  windowOpacity: 0.6 # 0 = fully transparent, 1 = fully opaque
+  windowBlur: 10 # px, backdrop blur on windows
+  borderRadius: 10 # px, window corner rounding
+  borderWidth: 1 # px, window border thickness
+  inactiveOpacity: 0.85 # dimming for inactive windows
+  noiseOpacity: 0.03 # grain overlay intensity (0 to disable)
+  terminalFontSize: 13 # px, monospace/terminal font size
+  uiFontSize: 14 # px, UI/sans-serif font size
 
 animations:
   enabled: true

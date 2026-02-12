@@ -52,6 +52,7 @@ Complete field-by-field reference for `hyprfolio.config.yaml`. The Zod schema in
   - [testScores](#testscores)
   - [personal](#personal)
   - [custom](#custom)
+
 ---
 
 ## Overview
@@ -1070,4 +1071,3 @@ custom:
         value: '15 merged PRs'
         url: 'https://github.com/hashicorp/terraform-provider-aws'
 ```
-

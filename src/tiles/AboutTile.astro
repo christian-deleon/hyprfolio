@@ -19,7 +19,8 @@ const defaultAscii = `╭────┬───────╮
 ╰───┴───┴────╯`;
 const ascii = about.ascii || defaultAscii;
 const asciiLines = ascii.split('\n');
-const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, '-');
+const username =
+  profile.username || profile.name.toLowerCase().replace(/\s+/g, '-');
 ---
 
 <div class="about-tile terminal-text p-4">
@@ -37,22 +38,14 @@ const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, 
       {
         profile.name && (
           <div>
-            <span class="info-user">
-              {username}@hyprfolio
-            </span>
+            <span class="info-user">{username}@hyprfolio</span>
           </div>
         )
       }
       {
         profile.name && (
           <div class="separator">
-            {'─'.repeat(
-              Math.max(
-                20,
-                (username + '@hyprfolio')
-                  .length,
-              ),
-            )}
+            {'─'.repeat(Math.max(20, (username + '@hyprfolio').length))}
           </div>
         )
       }
@@ -90,7 +83,13 @@ const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, 
   </div>
 
   {/* Bio */}
-  {about.bio && <p class="bio mt-4" data-typeable>{about.bio}</p>}
+  {
+    about.bio && (
+      <p class="bio mt-4" data-typeable>
+        {about.bio}
+      </p>
+    )
+  }
 
   {/* Fun facts */}
   {
@@ -113,7 +112,7 @@ const username = profile.username || profile.name.toLowerCase().replace(/\s+/g, 
     if (!tile) return;
 
     const elements = Array.from(
-      tile.querySelectorAll<HTMLElement>('[data-typeable]')
+      tile.querySelectorAll<HTMLElement>('[data-typeable]'),
     );
     if (elements.length === 0) return;
 
