@@ -22,28 +22,25 @@ const education = config.education;
             </span>
           </div>
           <div class="entry-detail">
-            {item.studyType && (
-              <span class="study-type">{item.studyType}</span>
-            )}
-            {item.studyType && item.area && (
-              <span class="separator"> · </span>
-            )}
+            {item.studyType && <span class="study-type">{item.studyType}</span>}
+            {item.studyType && item.area && <span class="separator"> · </span>}
             <span class="area">{item.area}</span>
-            {item.gpa && (
-              <span class="gpa"> · GPA: {item.gpa}</span>
-            )}
+            {item.gpa && <span class="gpa"> · GPA: {item.gpa}</span>}
           </div>
           {item.honors.length > 0 && (
             <div class="honors">
               {item.honors.map((h: string) => (
-                <span class="honor-item">  * {h}</span>
+                <span class="honor-item"> * {h}</span>
               ))}
             </div>
           )}
           {item.courses.length > 0 && (
             <div class="courses">
               {item.courses.map((c: string, i: number) => (
-                <span class="course-tag">{c}{i < item.courses.length - 1 ? ', ' : ''}</span>
+                <span class="course-tag">
+                  {c}
+                  {i < item.courses.length - 1 ? ', ' : ''}
+                </span>
               ))}
             </div>
           )}
