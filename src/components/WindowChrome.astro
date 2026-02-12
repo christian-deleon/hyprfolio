@@ -19,9 +19,14 @@ const { active = true } = Astro.props;
 
 <style>
   .window-chrome {
-    border: var(--hp-border-width) solid color-mix(in srgb, var(--hp-accent) 40%, transparent);
+    border: var(--hp-border-width) solid
+      color-mix(in srgb, var(--hp-accent) 40%, transparent);
     border-radius: var(--hp-border-radius);
-    background: color-mix(in srgb, var(--hp-base) var(--hp-window-opacity-pct), transparent);
+    background: color-mix(
+      in srgb,
+      var(--hp-base) var(--hp-window-opacity-pct),
+      transparent
+    );
     backdrop-filter: blur(var(--hp-window-blur));
     -webkit-backdrop-filter: blur(var(--hp-window-blur));
     box-shadow: 0 4px 16px var(--hp-shadow);

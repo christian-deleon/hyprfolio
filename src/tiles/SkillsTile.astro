@@ -9,7 +9,12 @@ const skills = config.skills;
 
 const TIER_MAP = {
   familiar: { label: 'Familiar', min: 5, max: 25, color: 'var(--hp-green)' },
-  proficient: { label: 'Proficient', min: 26, max: 50, color: 'var(--hp-teal)' },
+  proficient: {
+    label: 'Proficient',
+    min: 26,
+    max: 50,
+    color: 'var(--hp-teal)',
+  },
   advanced: { label: 'Advanced', min: 51, max: 75, color: 'var(--hp-yellow)' },
   expert: { label: 'Expert', min: 76, max: 100, color: 'var(--hp-purple)' },
 } as const;
@@ -61,10 +66,7 @@ function randomInRange(min: number, max: number): number {
                     </span>
                   </span>
                   <span class="bar-bracket">]</span>
-                  <span
-                    class="tier-label"
-                    style={`color:${tier.color}`}
-                  >
+                  <span class="tier-label" style={`color:${tier.color}`}>
                     {tier.label}
                   </span>
                 </div>
@@ -80,7 +82,7 @@ function randomInRange(min: number, max: number): number {
 <script>
   function initSkillsAnimation() {
     const rows = document.querySelectorAll<HTMLElement>(
-      '.bar-row[data-skill-tier-min]'
+      '.bar-row[data-skill-tier-min]',
     );
     if (rows.length === 0) return;
 
@@ -97,11 +99,15 @@ function randomInRange(min: number, max: number): number {
 
       const maxStep = 6;
       // Random start within tier range
-      let currentLevel = tierMin + Math.floor(Math.random() * (tierMax - tierMin + 1));
+      let currentLevel =
+        tierMin + Math.floor(Math.random() * (tierMax - tierMin + 1));
 
       function tick() {
         const step = Math.round((Math.random() * 2 - 1) * maxStep);
-        currentLevel = Math.min(tierMax, Math.max(tierMin, currentLevel + step));
+        currentLevel = Math.min(
+          tierMax,
+          Math.max(tierMin, currentLevel + step),
+        );
 
         fillEl!.style.width = `${currentLevel}%`;
 

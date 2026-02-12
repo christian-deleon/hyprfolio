@@ -254,7 +254,9 @@ export const ProjectItemSchema = z.object({
 });
 
 export const ProjectsGithubSchema = z.object({
-  username: z.string().min(1, 'GitHub username is required when github is configured'),
+  username: z
+    .string()
+    .min(1, 'GitHub username is required when github is configured'),
 });
 
 export const ProjectsSchema = z.object({

@@ -34,10 +34,18 @@ const lines: Line[] = [];
 
 // Header lines once at the top
 const firstItem = experience[0];
-const topHash = firstItem ? generateHash(firstItem.company, firstItem.position) : '0000000';
-const topHeadRef = firstItem?.current ? ' <span class="head-ref">(HEAD -&gt; main)</span>' : '';
-lines.push({ html: `<span class="commit-label">commit </span><span class="commit-hash">${topHash}</span>${topHeadRef}` });
-lines.push({ html: `<span class="field-label">Author: </span><span class="field-value">${profileName} &lt;${profileEmail}&gt;</span>` });
+const topHash = firstItem
+  ? generateHash(firstItem.company, firstItem.position)
+  : '0000000';
+const topHeadRef = firstItem?.current
+  ? ' <span class="head-ref">(HEAD -&gt; main)</span>'
+  : '';
+lines.push({
+  html: `<span class="commit-label">commit </span><span class="commit-hash">${topHash}</span>${topHeadRef}`,
+});
+lines.push({
+  html: `<span class="field-label">Author: </span><span class="field-value">${profileName} &lt;${profileEmail}&gt;</span>`,
+});
 lines.push({ html: '', blank: true });
 
 experience.forEach((item: ExperienceItem, index: number) => {
@@ -45,22 +53,32 @@ experience.forEach((item: ExperienceItem, index: number) => {
     lines.push({ html: '', blank: true });
   }
 
-  lines.push({ html: `<span class="field-label">Date: </span><span class="field-value">${item.startDate} — ${item.endDate || 'present'}</span>` });
+  lines.push({
+    html: `<span class="field-label">Date: </span><span class="field-value">${item.startDate} — ${item.endDate || 'present'}</span>`,
+  });
 
   if (item.location) {
-    lines.push({ html: `<span class="field-label">Origin: </span><span class="field-value">${item.location}</span>` });
+    lines.push({
+      html: `<span class="field-label">Origin: </span><span class="field-value">${item.location}</span>`,
+    });
   }
 
   lines.push({ html: '', blank: true });
-  lines.push({ html: `<span class="commit-company">  ${item.position} @ ${item.company}</span>` });
+  lines.push({
+    html: `<span class="commit-company">  ${item.position} @ ${item.company}</span>`,
+  });
 
   if (item.summary) {
-    lines.push({ html: `<span class="commit-summary">  ${item.summary}</span>` });
+    lines.push({
+      html: `<span class="commit-summary">  ${item.summary}</span>`,
+    });
   }
 
   if (item.highlights.length > 0) {
     item.highlights.forEach((h: string) => {
-      lines.push({ html: `<span class="highlight"><span class="highlight-bullet">   - </span><span class="highlight-text">${mdBold(h)}</span></span>` });
+      lines.push({
+        html: `<span class="highlight"><span class="highlight-bullet">   - </span><span class="highlight-text">${mdBold(h)}</span></span>`,
+      });
     });
   }
 });
@@ -68,12 +86,17 @@ experience.forEach((item: ExperienceItem, index: number) => {
 
 <div class="editor-experience terminal-text overflow-y-auto">
   <div class="editor-lines">
-    {lines.map((line, i) => (
-      <div class="editor-line">
-        <span class="line-number">{String(i + 1).padStart(3, ' ')}</span>
-        <span class="line-content" set:html={line.blank ? '&nbsp;' : line.html} />
-      </div>
-    ))}
+    {
+      lines.map((line, i) => (
+        <div class="editor-line">
+          <span class="line-number">{String(i + 1).padStart(3, ' ')}</span>
+          <span
+            class="line-content"
+            set:html={line.blank ? '&nbsp;' : line.html}
+          />
+        </div>
+      ))
+    }
   </div>
 </div>
 
