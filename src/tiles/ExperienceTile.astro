@@ -70,7 +70,7 @@ experience.forEach((item: ExperienceItem, index: number) => {
 
   if (item.summary) {
     lines.push({
-      html: `<span class="commit-summary">  ${item.summary}</span>`,
+      html: `<span class="commit-summary">${item.summary}</span>`,
     });
   }
 
@@ -164,8 +164,12 @@ experience.forEach((item: ExperienceItem, index: number) => {
   }
 
   .line-content :global(.commit-summary) {
+    display: block;
     color: var(--hp-subtext-1);
-    white-space: pre;
+    padding-left: 2ch;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .line-content :global(.highlight) {
