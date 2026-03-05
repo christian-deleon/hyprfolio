@@ -69,6 +69,33 @@ const username =
           </div>
         )
       }
+      {
+        email && (
+          <div>
+            <span class="info-key">Email</span>
+            <span class="info-sep">: </span>
+            <a href={`mailto:${email}`} class="contact-link">
+              {email}
+            </a>
+          </div>
+        )
+      }
+      {
+        social.map((link: SocialLink) => (
+          <div>
+            <span class="info-key">{link.network}</span>
+            <span class="info-sep">: </span>
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
+              {link.username || link.url}
+            </a>
+          </div>
+        ))
+      }
     </div>
   </div>
 
@@ -101,37 +128,6 @@ const username =
           <div class="fun-fact" data-typeable>
             <span class="bullet"> * </span>
             {fact}
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  {/* Contact & links */}
-  {
-    (email || social.length > 0) && (
-      <div class="contact-section mt-4">
-        {email && (
-          <div>
-            <span class="info-key">Email</span>
-            <span class="info-sep">: </span>
-            <a href={`mailto:${email}`} class="contact-link">
-              {email}
-            </a>
-          </div>
-        )}
-        {social.map((link: SocialLink) => (
-          <div>
-            <span class="info-key">{link.network}</span>
-            <span class="info-sep">: </span>
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="contact-link"
-            >
-              {link.username || link.url}
-            </a>
           </div>
         ))}
       </div>
@@ -278,14 +274,6 @@ const username =
 
   .bullet {
     color: var(--hp-green);
-  }
-
-  .contact-section {
-    border-top: 1px solid var(--hp-surface-1);
-    padding-top: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
   }
 
   .contact-link {
