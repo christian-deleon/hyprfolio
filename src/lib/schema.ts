@@ -83,10 +83,10 @@ export const ProfileSchema = z.object({
   email: optionalString,
 });
 
-export const SocialLinkSchema = z.object({
-  network: z.string(),
+export const LinkSchema = z.object({
+  name: z.string(),
   url: urlString,
-  username: optionalString,
+  text: optionalString,
 });
 
 export const AboutSchema = z.object({
@@ -468,7 +468,7 @@ export const HyprfolioConfigSchema = z.object({
 
   // Identity
 
-  social: z.array(SocialLinkSchema).default([]),
+  links: z.array(LinkSchema).default([]),
   about: AboutSchema.default({}),
 
   // Visual

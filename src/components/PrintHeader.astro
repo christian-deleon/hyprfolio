@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { config } = Astro.props;
-const { profile, social } = config;
+const { profile, links } = config;
 ---
 
 <header class="print-header" aria-hidden="true">
@@ -21,11 +21,11 @@ const { profile, social } = config;
   </div>
 
   {
-    social.length > 0 && (
+    links.length > 0 && (
       <div class="print-social">
-        {social.map((link) => (
+        {links.map((link) => (
           <a href={link.url}>
-            {link.username ? `${link.network}: ${link.username}` : link.url}
+            {link.text ? `${link.name}: ${link.text}` : link.url}
           </a>
         ))}
       </div>

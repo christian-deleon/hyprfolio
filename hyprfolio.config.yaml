@@ -15,10 +15,10 @@ profile:
   location: 'New York, NY'
   email: 'elliot@protonmail.ch'
 
-social:
-  - network: GitHub
+links:
+  - name: GitHub
     url: 'https://github.com/mr-robot-00'
-    username: mr-robot-00
+    text: mr-robot-00
 
 about:
   bio: 'Cybersecurity engineer at Allsafe Cybersecurity, where I protect some of the largest corporations in the world from threats they never see coming. I specialize in penetration testing, network defense, and vulnerability research. Most of my work happens in a terminal — I write custom tools, tear apart exploits, and harden infrastructure that other people assume is already secure. I believe security is not a product, it is a process. And I take that process seriously.'

@@ -1,11 +1,11 @@
 ---
 import { loadConfig } from '@/lib/config';
-import type { SocialLink } from '@/types/config';
+import type { Link } from '@/types/config';
 
 interface Props {}
 
 const config = loadConfig();
-const { about, profile, social } = config;
+const { about, profile, links } = config;
 const email = profile.email || '';
 const systemInfo = about.systemInfo;
 const systemInfoEntries = Object.entries(systemInfo);
@@ -81,9 +81,9 @@ const username =
         )
       }
       {
-        social.map((link: SocialLink) => (
+        links.map((link: Link) => (
           <div>
-            <span class="info-key">{link.network}</span>
+            <span class="info-key">{link.name}</span>
             <span class="info-sep">: </span>
             <a
               href={link.url}
@@ -91,7 +91,7 @@ const username =
               rel="noopener noreferrer"
               class="contact-link"
             >
-              {link.username || link.url}
+              {link.text || link.url}
             </a>
           </div>
         ))
